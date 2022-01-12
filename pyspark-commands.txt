@@ -1,0 +1,71 @@
+%pyspark
+import numpy as np 
+import pandas as pd
+import os
+import seaborn as sns
+
+# pyspark
+from pyspark import SparkConf, SparkContext
+from pyspark.sql import SparkSession, SQLContext
+
+from pyspark.sql.types import *
+import pyspark.sql.functions as F
+from pyspark.sql.functions import udf, col
+---
+%pyspark
+spark = SparkSession.builder.master("spark://master:7077").appName("Test2").getOrCreate()
+sc = spark.sparkContext
+sqlContext = SQLContext(sc)
+---
+%pyspark
+from pyspark import SparkFiles
+location='hdfs://namenode:9000/global'
+df = spark.read.option("multiline","true").json(location)
+df.printSchema()
+---
+%pyspark
+#user-defined function to concatenate artists name
+@udf
+def concat_artists_udf(artists_array):
+    _artists = ''
+    i=0
+    for artist in artists_array:
+        if(i==0):
+            _artists = artist['name']
+            i+=1
+        else:
+            _artists = _artists + ' & ' + artist['name']
+    return _artists
+
+#drop unnecessary data    
+df = df.drop('analysis_url','album','available_markets','disc_number','external_ids','external_urls','href','is_local','preview_url' \
+        ,'track_href','track_number','uri','type')
+#refind data structure
+df = df.withColumn('artists',concat_artists_udf(col('artists')))
+df = df.withColumn("genres",F.concat_ws(",",col("genres")))
+---
+%pyspark
+df.write.format(
+    'org.elasticsearch.spark.sql'
+).option(
+    'es.nodes', 'http://172.18.0.10'
+).option(
+    'es.port', 9200
+).option(
+    'es.resource', '/spotifydataset/final'
+).save()
+---
+df.registerTempTable("df_table")
+df_hiphop = spark.sql('''SELECT * \
+                 FROM df_table \
+                 WHERE genres LIKE "%hip hop%"''')
+---
+df_hiphop.write.format(
+    'org.elasticsearch.spark.sql'
+).option(
+    'es.nodes', 'http://172.18.0.10'
+).option(
+    'es.port', 9200
+).option(
+    'es.resource', '/spotifyhiphopdataset/final'
+).save()
