@@ -1,0 +1,622 @@
+{
+  "paragraphs": [
+    {
+      "text": "%pyspark\r\nimport numpy as np \r\nimport pandas as pd\r\nimport os\r\n#import seaborn as sns\r\n#import matplotlib.pyplot as plt\r\n#import plotly.express as px\r\n# these 2 lines fix a sporatic loading error in plotly\r\n#from plotly.offline import plot\r\n#sns.set_style(\u0027darkgrid\u0027)\r\n# pyspark\r\nfrom pyspark import SparkConf, SparkContext\r\nfrom pyspark.sql import SparkSession, SQLContext\r\n\r\nfrom pyspark.sql.types import *\r\nimport pyspark.sql.functions as F\r\nfrom pyspark.sql.functions import udf, col",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 3:56:56 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1641191878481_-1257258449",
+      "id": "20220103-063758_107201741",
+      "dateCreated": "Jan 3, 2022 6:37:58 AM",
+      "dateStarted": "Jan 4, 2022 3:56:57 PM",
+      "dateFinished": "Jan 4, 2022 3:56:57 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nspark \u003d SparkSession.builder.master(\"spark://master:7077\").appName(\"Spotify-Analysis\").getOrCreate() #.enableHiveSupport()\nspark",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 3:56:59 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u003cpyspark.sql.session.SparkSession object at 0x7fe56acc4cc0\u003e\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641191954690_1517473997",
+      "id": "20220103-063914_986630256",
+      "dateCreated": "Jan 3, 2022 6:39:14 AM",
+      "dateStarted": "Jan 4, 2022 3:56:59 PM",
+      "dateFinished": "Jan 4, 2022 3:56:59 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nsc \u003d spark.sparkContext\nsqlContext \u003d SQLContext(sc)",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 3:57:00 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1641192854770_-1353606018",
+      "id": "20220103-065414_750782243",
+      "dateCreated": "Jan 3, 2022 6:54:14 AM",
+      "dateStarted": "Jan 4, 2022 3:57:00 PM",
+      "dateFinished": "Jan 4, 2022 3:57:00 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nfrom pyspark import SparkFiles\nlocation\u003d\u0027hdfs://172.18.0.6:9000/tracks.csv\u0027\ndf \u003d spark.read.format(\"csv\").option(\"header\",\"true\").load(location)\ndf.printSchema()",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 3:57:23 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "root\n |-- id: string (nullable \u003d true)\n |-- name: string (nullable \u003d true)\n |-- popularity: string (nullable \u003d true)\n |-- duration_ms: string (nullable \u003d true)\n |-- explicit: string (nullable \u003d true)\n |-- artists: string (nullable \u003d true)\n |-- id_artists: string (nullable \u003d true)\n |-- release_date: string (nullable \u003d true)\n |-- danceability: string (nullable \u003d true)\n |-- energy: string (nullable \u003d true)\n |-- key: string (nullable \u003d true)\n |-- loudness: string (nullable \u003d true)\n |-- mode: string (nullable \u003d true)\n |-- speechiness: string (nullable \u003d true)\n |-- acousticness: string (nullable \u003d true)\n |-- instrumentalness: string (nullable \u003d true)\n |-- liveness: string (nullable \u003d true)\n |-- valence: string (nullable \u003d true)\n |-- tempo: string (nullable \u003d true)\n |-- time_signature: string (nullable \u003d true)\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641193541899_-1959818164",
+      "id": "20220103-070541_329869212",
+      "dateCreated": "Jan 3, 2022 7:05:41 AM",
+      "dateStarted": "Jan 4, 2022 3:57:23 PM",
+      "dateFinished": "Jan 4, 2022 3:57:24 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "",
+      "user": "anonymous",
+      "dateUpdated": "Jan 3, 2022 4:16:04 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1641224773862_329421868",
+      "id": "20220103-154613_1435251800",
+      "dateCreated": "Jan 3, 2022 3:46:13 PM",
+      "dateStarted": "Jan 3, 2022 3:46:18 PM",
+      "dateFinished": "Jan 3, 2022 3:46:18 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\npd_df\u003ddf.sample(fraction\u003d0.1,withReplacement\u003dTrue).toPandas()\npd_df.head()\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 4:04:46 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "                       id                                 name popularity  \\\n0  0IgI1UCz84pYeVetnl1lGP                   Old Fashioned Girl          0   \n1  0eb1PfHxT6HnXvvdUOzmME  Capítulo 1.18 - Banquero Anarquista          0   \n2  0kCB1bDVBC8gWCFcnJyIZc                   Ca C\u0027est Une Chose          0   \n3  0kCB1bDVBC8gWCFcnJyIZc                   Ca C\u0027est Une Chose          0   \n4  2Be2FRskn33cqPyeSdTqFd        No Me Olvides - Remasterizado          0   \n\n  duration_ms explicit              artists                  id_artists  \\\n0      310073        0      [\u0027Greg Fieler\u0027]  [\u00275nWlsH5RDgFuRAiDeOFVmf\u0027]   \n1      103200        0  [\u0027Fernando Pessoa\u0027]  [\u002714jtPCOoNZwquk5wd9DxrY\u0027]   \n2      188000        0   [\u0027Victor Boucher\u0027]  [\u00277vVR02JJYvsEAEPNHQMx0Q\u0027]   \n3      188000        0   [\u0027Victor Boucher\u0027]  [\u00277vVR02JJYvsEAEPNHQMx0Q\u0027]   \n4      155093        0  [\u0027Ignacio Corsini\u0027]  [\u00275LiOoJbxVSAMkBS2fUm3X2\u0027]   \n\n  release_date danceability  energy key loudness mode speechiness  \\\n0         1922        0.488   0.475   0  -16.222    0      0.0399   \n1   1922-06-01          0.8   0.171   8  -24.384    1       0.953   \n2         1922        0.352   0.334   5  -13.038    1      0.0594   \n3         1922        0.352   0.334   5  -13.038    1      0.0594   \n4   1922-03-21        0.484  0.0558   8   -25.33    0      0.0575   \n\n  acousticness instrumentalness liveness valence    tempo time_signature  \n0         0.62          0.00645    0.107   0.544  139.952              4  \n1         0.67              0.0    0.123   0.693   59.613              3  \n2        0.996          0.00746     0.36   0.414   76.403              4  \n3        0.996          0.00746     0.36   0.414   76.403              4  \n4        0.996            0.278    0.202   0.636   99.555              4  \n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641202412300_-1446403090",
+      "id": "20220103-093332_828237592",
+      "dateCreated": "Jan 3, 2022 9:33:32 AM",
+      "dateStarted": "Jan 4, 2022 4:04:46 PM",
+      "dateFinished": "Jan 4, 2022 4:04:50 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nimport seaborn as sns\nimport matplotlib.pyplot as plt\ncorr_df\u003d pd_df.drop([\u0027key\u0027,\u0027mode\u0027,\u0027explicit\u0027],axis\u003d1).corr(method\u003d\"pearson\")\nplt.figure(figsize\u003d(18,6))\nheatmap\u003dsns.heatmap(corr_df,annot\u003dTrue,fmt\u003d\".1g\",vmin\u003d-1,vmax\u003d1,center\u003d0,cmap\u003d\"inferno\",linewidths\u003d1,linecolor\u003d\"Black\")\nheatmap.set_title(\"Correlation Heatmap Between Variable\")\nheatmap.set_xticklabels(heatmap.get_xticklabels(),rotation\u003d90)",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 4:12:35 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Traceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-1908877066545553697.py\", line 355, in \u003cmodule\u003e\n    exec(code, _zcUserQueryNameSpace)\n  File \"\u003cstdin\u003e\", line 4, in \u003cmodule\u003e\n  File \"/usr/local/lib/python3.4/dist-packages/matplotlib/pyplot.py\", line 533, in figure\n    **kwargs)\n  File \"/usr/local/lib/python3.4/dist-packages/matplotlib/backend_bases.py\", line 161, in new_figure_manager\n    return cls.new_figure_manager_given_figure(num, fig)\n  File \"/usr/local/lib/python3.4/dist-packages/matplotlib/backends/_backend_tk.py\", line 1046, in new_figure_manager_given_figure\n    window \u003d Tk.Tk(className\u003d\"matplotlib\")\n  File \"/usr/lib/python3.4/tkinter/__init__.py\", line 1854, in __init__\n    self.tk \u003d _tkinter.create(screenName, baseName, className, interactive, wantobjects, useTk, sync, use)\n_tkinter.TclError: no display name and no $DISPLAY environment variable\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-1908877066545553697.py\", line 367, in \u003cmodule\u003e\n    raise Exception(traceback.format_exc())\nException: Traceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-1908877066545553697.py\", line 355, in \u003cmodule\u003e\n    exec(code, _zcUserQueryNameSpace)\n  File \"\u003cstdin\u003e\", line 4, in \u003cmodule\u003e\n  File \"/usr/local/lib/python3.4/dist-packages/matplotlib/pyplot.py\", line 533, in figure\n    **kwargs)\n  File \"/usr/local/lib/python3.4/dist-packages/matplotlib/backend_bases.py\", line 161, in new_figure_manager\n    return cls.new_figure_manager_given_figure(num, fig)\n  File \"/usr/local/lib/python3.4/dist-packages/matplotlib/backends/_backend_tk.py\", line 1046, in new_figure_manager_given_figure\n    window \u003d Tk.Tk(className\u003d\"matplotlib\")\n  File \"/usr/lib/python3.4/tkinter/__init__.py\", line 1854, in __init__\n    self.tk \u003d _tkinter.create(screenName, baseName, className, interactive, wantobjects, useTk, sync, use)\n_tkinter.TclError: no display name and no $DISPLAY environment variable\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641312267012_-763306562",
+      "id": "20220104-160427_356409483",
+      "dateCreated": "Jan 4, 2022 4:04:27 PM",
+      "dateStarted": "Jan 4, 2022 4:12:35 PM",
+      "dateFinished": "Jan 4, 2022 4:12:35 PM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nfrom elasticsearch import Elasticsearch\nfrom elasticsearch import helpers\nes \u003d Elasticsearch(http_compress\u003dTrue)",
+      "user": "anonymous",
+      "dateUpdated": "Jan 3, 2022 4:20:34 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1641224074873_636071675",
+      "id": "20220103-153434_1443074058",
+      "dateCreated": "Jan 3, 2022 3:34:34 PM",
+      "dateStarted": "Jan 3, 2022 4:20:34 PM",
+      "dateFinished": "Jan 3, 2022 4:20:34 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\ncorr_df\u003ddf[[\u0027speechiness\u0027,\u0027loudness\u0027,\u0027energy\u0027,\u0027danceability\u0027]].drop([\u0027energy\u0027],axis\u003d1).corr(method\u003d\"pearson\")\nheatmap\u003dsns.heatmap(df,annot\u003dTrue,fmt\u003d\u0027.1g\u0027,vmin\u003d-1,vmax\u003d1,center\u003d0,cmap\u003d\u0027inferno\u0027,linewidths\u003d1,linecolor\u003d\u0027Black\u0027)\nheatmap.set_title(\"Correlation Heatmap Between Variable\")\nheatmap.set_xticklabels(heatmap.get_xticklabels(),rotation\u003d90)",
+      "user": "anonymous",
+      "dateUpdated": "Jan 3, 2022 3:31:57 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Traceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-4073813749565451058.py\", line 355, in \u003cmodule\u003e\n    exec(code, _zcUserQueryNameSpace)\n  File \"\u003cstdin\u003e\", line 1, in \u003cmodule\u003e\nTypeError: drop() got an unexpected keyword argument \u0027axis\u0027\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-4073813749565451058.py\", line 367, in \u003cmodule\u003e\n    raise Exception(traceback.format_exc())\nException: Traceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-4073813749565451058.py\", line 355, in \u003cmodule\u003e\n    exec(code, _zcUserQueryNameSpace)\n  File \"\u003cstdin\u003e\", line 1, in \u003cmodule\u003e\nTypeError: drop() got an unexpected keyword argument \u0027axis\u0027\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641223312077_1760759464",
+      "id": "20220103-152152_306605608",
+      "dateCreated": "Jan 3, 2022 3:21:52 PM",
+      "dateStarted": "Jan 3, 2022 3:31:57 PM",
+      "dateFinished": "Jan 3, 2022 3:31:57 PM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\ndf.registerTempTable(\"df_table\")",
+      "user": "anonymous",
+      "dateUpdated": "Jan 3, 2022 2:41:42 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1641202934940_1387820417",
+      "id": "20220103-094214_290166091",
+      "dateCreated": "Jan 3, 2022 9:42:14 AM",
+      "dateStarted": "Jan 3, 2022 2:41:43 PM",
+      "dateFinished": "Jan 3, 2022 2:41:43 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n# Most popular artist (by sum of popularity of songs) in the USA\nres \u003d spark.sql(\u0027SELECT Artist, ROUND(SUM(Popularity), 2) AS Populartiy \\\n                 FROM df_table \\\n                 WHERE USA \u003d\u003d 1 \\\n                 GROUP BY Artist \\\n                 ORDER BY AVG(Popularity) DESC \\\n                 LIMIT 10\u0027\n               )\nres.show(10, truncate\u003dFalse)",
+      "user": "anonymous",
+      "dateUpdated": "Jan 3, 2022 2:41:43 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+------------------------------+----------+\n|Artist                        |Populartiy|\n+------------------------------+----------+\n|Post Malone - Quavo           |130719.15 |\n|XXXTENTACION - Trippie Redd   |97016.35  |\n|Meek Mill - Drake             |83235.95  |\n|Post Malone - 21 Savage       |159633.25 |\n|Billie Eilish - Khalid        |79693.9   |\n|Marshmello - Bastille         |74560.5   |\n|Cardi B - Bad Bunny - J Balvin|74381.6   |\n|Migos - Lil Uzi Vert          |70138.2   |\n|BlocBoy JB - Drake            |69576.75  |\n|Kendrick Lamar - Zacari       |67838.15  |\n+------------------------------+----------+\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641202796157_1503650617",
+      "id": "20220103-093956_1787145315",
+      "dateCreated": "Jan 3, 2022 9:39:56 AM",
+      "dateStarted": "Jan 3, 2022 2:41:43 PM",
+      "dateFinished": "Jan 3, 2022 2:41:46 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\ndf.sample(False,fraction\u003d0.1).select(\u0027Artist\u0027).distinct().count() # number of unique artists in 10% random sample",
+      "user": "anonymous",
+      "dateUpdated": "Jan 3, 2022 2:41:47 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "6768\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641202841848_1635280713",
+      "id": "20220103-094041_1183441938",
+      "dateCreated": "Jan 3, 2022 9:40:41 AM",
+      "dateStarted": "Jan 3, 2022 2:41:47 PM",
+      "dateFinished": "Jan 3, 2022 2:41:49 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n# select only the songs released in 1939\ndf.filter(F.year(df[\u0027Release_date\u0027]) \u003d\u003d 1939) \\\n  .select(\u0027Title\u0027, \u0027Artist\u0027,\u0027Release_date\u0027, \u0027Genre\u0027) \\\n  .distinct() \\\n  .show(5, truncate\u003dFalse)",
+      "user": "anonymous",
+      "dateUpdated": "Jan 3, 2022 2:41:51 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+--------------------------------------------+------------+------------+---------------+\n|Title                                       |Artist      |Release_date|Genre          |\n+--------------------------------------------+------------+------------+---------------+\n|moonlight serenade - 2005 remastered version|Glenn Miller|1939-09-01  |adult standards|\n+--------------------------------------------+------------+------------+---------------+\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641202971151_-911793111",
+      "id": "20220103-094251_1185659309",
+      "dateCreated": "Jan 3, 2022 9:42:51 AM",
+      "dateStarted": "Jan 3, 2022 2:41:51 PM",
+      "dateFinished": "Jan 3, 2022 2:41:54 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nres \u003d spark.sql(\u0027SELECT \\\n                     ROUND(Year(Release_date), -1) AS Decade, \\\n                     Round(Popularity, 2) AS Popularity, Title, Artist \\\n                 FROM df_table \\\n                 INNER JOIN (SELECT Max(Popularity) as mp \\\n                                FROM df_table \\\n                             WHERE ROUND(Year(Release_date), -1) IS NOT NULL \\\n                                 AND USA \u003d\u003d 1 \\\n                             GROUP BY ROUND(Year(Release_date), -1) \\\n                             ) AS temp \\\n                 ON temp.mp \u003d df_table.Popularity \\\n                 ORDER BY Decade ASC, Popularity ASC \\\n                \u0027)\nres.toPandas().drop_duplicates(subset\u003d\u0027Decade\u0027, keep\u003d\"last\")",
+      "user": "anonymous",
+      "dateUpdated": "Jan 3, 2022 2:41:55 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "     Decade  Popularity                                   Title  \\\n10      NaN       98.60     say it loud - im black and im proud   \n11   1940.0      840.50  have yourself a merry little christmas   \n12   1950.0      997.60                         mele kalikimaka   \n15   1960.0     9704.95                          blue christmas   \n16   1970.0       98.40     me and julio down by the schoolyard   \n24   1980.0       98.60                     listen to her heart   \n32   1990.0       98.40    home for the holidays - 1959 version   \n40   2000.0     9476.05                           feliz navidad   \n75   2010.0       98.60                             suomirokkia   \n383  2020.0    99912.30                           drip too hard   \n\n                                Artist  \n10                         James Brown  \n11                        Judy Garland  \n12   Bing Crosby - The Andrews Sisters  \n15                       Elvis Presley  \n16                          Paul Simon  \n24     Tom Petty and the Heartbreakers  \n32                          Perry Como  \n40                      José Feliciano  \n75                            Aknestik  \n383                   Lil Baby - Gunna  \n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641203554213_1573158828",
+      "id": "20220103-095234_572057219",
+      "dateCreated": "Jan 3, 2022 9:52:34 AM",
+      "dateStarted": "Jan 3, 2022 2:41:55 PM",
+      "dateFinished": "Jan 3, 2022 2:42:01 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n # Most popular genres, period.\nspark.sql(\u0027SELECT \\\n              Genre, COUNT(*) AS Tally \\\n          FROM df_table \\\n          GROUP BY Genre \\\n          ORDER BY Tally DESC \\\n          \u0027).show(5)",
+      "user": "anonymous",
+      "dateUpdated": "Jan 3, 2022 2:42:04 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+---------+-----+\n|    Genre|Tally|\n+---------+-----+\n|dance pop|25351|\n|    latin| 7591|\n|      pop| 7146|\n|    k-pop| 4053|\n|      n-a| 3952|\n+---------+-----+\nonly showing top 5 rows\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641203651025_916498081",
+      "id": "20220103-095411_1177611937",
+      "dateCreated": "Jan 3, 2022 9:54:11 AM",
+      "dateStarted": "Jan 3, 2022 2:42:04 PM",
+      "dateFinished": "Jan 3, 2022 2:42:05 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nres \u003d spark.sql(\u0027SELECT  \\\n                    ROUND(Year(Release_date), -1) AS Decade, \\\n                    Genre, COUNT(Genre) AS counts \\\n                FROM df_table \\\n                WHERE ROUND(Year(Release_date), -1) IS NOT NULL \\\n                GROUP BY Decade, Genre \\\n                ORDER BY COUNT(Genre) DESC \\\n                \u0027) \\\n            .dropDuplicates(subset\u003d[\u0027Decade\u0027]) \\\n            .orderBy(\u0027Decade\u0027) \\\n            .show()\n# res.toPandas().drop_duplicates(subset\u003d\u0027Decade\u0027, keep\u003d\"first\")",
+      "user": "anonymous",
+      "dateUpdated": "Jan 3, 2022 2:42:09 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+------+-------------------+------+\n|Decade|              Genre|counts|\n+------+-------------------+------+\n|  1900|vocal harmony group|     1|\n|  1930|        movie tunes|     1|\n|  1940|    adult standards|    39|\n|  1950|    adult standards|    36|\n|  1960|    adult standards|   186|\n|  1970|       classic soul|   152|\n|  1980|         album rock|   379|\n|  1990|         album rock|   145|\n|  2000|  alternative metal|   477|\n|  2010|           big room|   392|\n|  2020|           big room|  2686|\n+------+-------------------+------+\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641203721435_-566016052",
+      "id": "20220103-095521_985601695",
+      "dateCreated": "Jan 3, 2022 9:55:21 AM",
+      "dateStarted": "Jan 3, 2022 2:42:09 PM",
+      "dateFinished": "Jan 3, 2022 2:42:14 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nsound_features \u003d [\u0027danceability\u0027, \u0027energy\u0027, \u0027instrumentalness\u0027, \u0027valence\u0027, \u0027liveliness\u0027, \u0027speechiness\u0027, \u0027acoustics\u0027]\ncol_names \u003d [\u0027Decade\u0027]\ncol_names.extend(sound_features)\ndf_music_features \u003d df.sample(False, 0.2, seed\u003d42) \\\n                      .groupBy(F.round(F.year(df.Release_date), -1)) \\\n                      .agg({feature: \u0027mean\u0027 for feature in sound_features}) \\\n                      .toDF(*col_names) \\\n                      .orderBy(\u0027Decade\u0027) \\\n                      .toPandas() \\\n                      .dropna(axis\u003d0)\nsns.lineplot(data\u003dpd.melt(df_music_features, [\u0027Decade\u0027]), x\u003d\u0027Decade\u0027, y\u003d\u0027value\u0027, hue\u003d\u0027variable\u0027).set_title(\u0027Song Characteristics Over the Decades\u0027);",
+      "user": "anonymous",
+      "dateUpdated": "Jan 3, 2022 2:43:41 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Text(0.5,1,\u0027Song Characteristics Over the Decades\u0027)\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641203741776_-1045397858",
+      "id": "20220103-095541_1282345941",
+      "dateCreated": "Jan 3, 2022 9:55:41 AM",
+      "dateStarted": "Jan 3, 2022 2:43:41 PM",
+      "dateFinished": "Jan 3, 2022 2:43:43 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 3, 2022 10:01:23 AM",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1641204083211_-1387730266",
+      "id": "20220103-100123_421066637",
+      "dateCreated": "Jan 3, 2022 10:01:23 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "SpotifyAnalysis",
+  "id": "2GSYGU41Y",
+  "angularObjects": {
+    "2GSCTPTVM:shared_process": [],
+    "2GS2B16FJ:shared_process": [],
+    "2GQZMVHTA:shared_process": [],
+    "2GTNB394J:shared_process": [],
+    "2GSKN9QPB:shared_process": [],
+    "2GSMNBN3Z:shared_process": [],
+    "2GUDCM5QS:shared_process": [],
+    "2GRQQAU61:shared_process": [],
+    "2GTXDWV5N:shared_process": []
+  },
+  "config": {},
+  "info": {}
+}

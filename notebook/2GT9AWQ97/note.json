@@ -1,0 +1,138 @@
+{
+  "paragraphs": [
+    {
+      "text": "%pyspark\nfrom pyspark import SparkConf, SparkContext\nfrom pyspark.sql import SparkSession, SQLContext\nspark \u003d SparkSession.builder.master(\"spark://master:7077\").appName(\"TestData1\").getOrCreate()\nsc \u003d spark.sparkContext\nsqlContext \u003d SQLContext(sc)",
+      "user": "anonymous",
+      "dateUpdated": "Jan 10, 2022 3:26:43 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1641828337263_1421134145",
+      "id": "20220110-152537_822868655",
+      "dateCreated": "Jan 10, 2022 3:25:37 PM",
+      "dateStarted": "Jan 10, 2022 3:26:43 PM",
+      "dateFinished": "Jan 10, 2022 3:26:43 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nfrom pyspark import SparkFiles\nlocation\u003d\u0027hdfs://14.162.123.48:9000/global/\u0027\ndf \u003d spark.read.option(\"multiline\",\"true\").json(location)\n#df \u003d spark.read.json(location)\ndf.printSchema()",
+      "user": "anonymous",
+      "dateUpdated": "Jan 10, 2022 3:31:03 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Traceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-5831977924801407888.py\", line 355, in \u003cmodule\u003e\n    exec(code, _zcUserQueryNameSpace)\n  File \"\u003cstdin\u003e\", line 3, in \u003cmodule\u003e\n  File \"/usr/spark-2.2.0/python/pyspark/sql/readwriter.py\", line 249, in json\n    return self._df(self._jreader.json(self._spark._sc._jvm.PythonUtils.toSeq(path)))\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/java_gateway.py\", line 1158, in __call__\n    answer \u003d self.gateway_client.send_command(command)\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/java_gateway.py\", line 908, in send_command\n    response \u003d connection.send_command(command)\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/java_gateway.py\", line 1055, in send_command\n    answer \u003d smart_decode(self.stream.readline()[:-1])\n  File \"/usr/lib/python3.4/socket.py\", line 371, in readinto\n    return self._sock.recv_into(b)\n  File \"/usr/spark-2.2.0/python/pyspark/context.py\", line 237, in signal_handler\n    raise KeyboardInterrupt()\nKeyboardInterrupt\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-5831977924801407888.py\", line 367, in \u003cmodule\u003e\n    raise Exception(traceback.format_exc())\nException: Traceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-5831977924801407888.py\", line 355, in \u003cmodule\u003e\n    exec(code, _zcUserQueryNameSpace)\n  File \"\u003cstdin\u003e\", line 3, in \u003cmodule\u003e\n  File \"/usr/spark-2.2.0/python/pyspark/sql/readwriter.py\", line 249, in json\n    return self._df(self._jreader.json(self._spark._sc._jvm.PythonUtils.toSeq(path)))\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/java_gateway.py\", line 1158, in __call__\n    answer \u003d self.gateway_client.send_command(command)\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/java_gateway.py\", line 908, in send_command\n    response \u003d connection.send_command(command)\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/java_gateway.py\", line 1055, in send_command\n    answer \u003d smart_decode(self.stream.readline()[:-1])\n  File \"/usr/lib/python3.4/socket.py\", line 371, in readinto\n    return self._sock.recv_into(b)\n  File \"/usr/spark-2.2.0/python/pyspark/context.py\", line 237, in signal_handler\n    raise KeyboardInterrupt()\nKeyboardInterrupt\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641828403738_2093198529",
+      "id": "20220110-152643_1522397157",
+      "dateCreated": "Jan 10, 2022 3:26:43 PM",
+      "dateStarted": "Jan 10, 2022 3:31:03 PM",
+      "dateFinished": "Jan 10, 2022 3:36:24 PM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nfrom pyspark import SparkFiles\nlocation\u003d\u0027hdfs://14.162.123.48:9000/KhanhBQ/data-2019-01-01.json\u0027\ndf \u003d spark.read.option(\"multiline\",\"true\").json(location)\n#df \u003d spark.read.json(location)\ndf.printSchema()",
+      "user": "anonymous",
+      "dateUpdated": "Jan 10, 2022 4:25:53 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Traceback (most recent call last):\n  File \"/usr/spark-2.2.0/python/pyspark/sql/utils.py\", line 63, in deco\n    return f(*a, **kw)\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/protocol.py\", line 320, in get_return_value\n    format(target_id, \".\", name), value)\npy4j.protocol.Py4JJavaError: An error occurred while calling o890.json.\n: org.apache.spark.SparkException: Job 12 cancelled part of cancelled job group zeppelin-20220110-152841_1383701643\n\tat org.apache.spark.scheduler.DAGScheduler.org$apache$spark$scheduler$DAGScheduler$$failJobAndIndependentStages(DAGScheduler.scala:1499)\n\tat org.apache.spark.scheduler.DAGScheduler.handleJobCancellation(DAGScheduler.scala:1439)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$handleJobGroupCancelled$1.apply$mcVI$sp(DAGScheduler.scala:799)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$handleJobGroupCancelled$1.apply(DAGScheduler.scala:799)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$handleJobGroupCancelled$1.apply(DAGScheduler.scala:799)\n\tat scala.collection.mutable.HashSet.foreach(HashSet.scala:78)\n\tat org.apache.spark.scheduler.DAGScheduler.handleJobGroupCancelled(DAGScheduler.scala:799)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:1689)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:1669)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:1658)\n\tat org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:48)\n\tat org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:630)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2022)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2119)\n\tat org.apache.spark.rdd.RDD$$anonfun$fold$1.apply(RDD.scala:1089)\n\tat org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)\n\tat org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)\n\tat org.apache.spark.rdd.RDD.withScope(RDD.scala:362)\n\tat org.apache.spark.rdd.RDD.fold(RDD.scala:1083)\n\tat org.apache.spark.sql.execution.datasources.json.JsonInferSchema$.infer(JsonInferSchema.scala:68)\n\tat org.apache.spark.sql.execution.datasources.json.MultiLineJsonDataSource$.infer(JsonDataSource.scala:161)\n\tat org.apache.spark.sql.execution.datasources.json.JsonDataSource.inferSchema(JsonDataSource.scala:62)\n\tat org.apache.spark.sql.execution.datasources.json.JsonFileFormat.inferSchema(JsonFileFormat.scala:57)\n\tat org.apache.spark.sql.execution.datasources.DataSource$$anonfun$7.apply(DataSource.scala:177)\n\tat org.apache.spark.sql.execution.datasources.DataSource$$anonfun$7.apply(DataSource.scala:177)\n\tat scala.Option.orElse(Option.scala:289)\n\tat org.apache.spark.sql.execution.datasources.DataSource.getOrInferFileFormatSchema(DataSource.scala:176)\n\tat org.apache.spark.sql.execution.datasources.DataSource.resolveRelation(DataSource.scala:366)\n\tat org.apache.spark.sql.DataFrameReader.load(DataFrameReader.scala:178)\n\tat org.apache.spark.sql.DataFrameReader.json(DataFrameReader.scala:333)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)\n\tat py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:357)\n\tat py4j.Gateway.invoke(Gateway.java:280)\n\tat py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)\n\tat py4j.commands.CallCommand.execute(CallCommand.java:79)\n\tat py4j.GatewayConnection.run(GatewayConnection.java:214)\n\tat java.lang.Thread.run(Thread.java:748)\n\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-5831977924801407888.py\", line 355, in \u003cmodule\u003e\n    exec(code, _zcUserQueryNameSpace)\n  File \"\u003cstdin\u003e\", line 3, in \u003cmodule\u003e\n  File \"/usr/spark-2.2.0/python/pyspark/sql/readwriter.py\", line 249, in json\n    return self._df(self._jreader.json(self._spark._sc._jvm.PythonUtils.toSeq(path)))\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/java_gateway.py\", line 1160, in __call__\n    answer, self.gateway_client, self.target_id, self.name)\n  File \"/usr/spark-2.2.0/python/pyspark/sql/utils.py\", line 67, in deco\n    e.java_exception.getStackTrace()))\n  File \"/usr/lib/python3.4/_collections_abc.py\", line 639, in __iter__\n    v \u003d self[i]\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/java_collections.py\", line 191, in __getitem__\n    return self.__compute_item(key)\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/java_collections.py\", line 167, in __compute_item\n    new_key \u003d self.__compute_index(key)\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/java_collections.py\", line 156, in __compute_index\n    size \u003d len(self)\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/java_collections.py\", line 239, in __len__\n    return get_return_value(answer, self._gateway_client)\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/protocol.py\", line 313, in get_return_value\n    if is_error(answer)[0]:\n  File \"/usr/spark-2.2.0/python/pyspark/context.py\", line 237, in signal_handler\n    raise KeyboardInterrupt()\nKeyboardInterrupt\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-5831977924801407888.py\", line 367, in \u003cmodule\u003e\n    raise Exception(traceback.format_exc())\nException: Traceback (most recent call last):\n  File \"/usr/spark-2.2.0/python/pyspark/sql/utils.py\", line 63, in deco\n    return f(*a, **kw)\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/protocol.py\", line 320, in get_return_value\n    format(target_id, \".\", name), value)\npy4j.protocol.Py4JJavaError: An error occurred while calling o890.json.\n: org.apache.spark.SparkException: Job 12 cancelled part of cancelled job group zeppelin-20220110-152841_1383701643\n\tat org.apache.spark.scheduler.DAGScheduler.org$apache$spark$scheduler$DAGScheduler$$failJobAndIndependentStages(DAGScheduler.scala:1499)\n\tat org.apache.spark.scheduler.DAGScheduler.handleJobCancellation(DAGScheduler.scala:1439)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$handleJobGroupCancelled$1.apply$mcVI$sp(DAGScheduler.scala:799)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$handleJobGroupCancelled$1.apply(DAGScheduler.scala:799)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$handleJobGroupCancelled$1.apply(DAGScheduler.scala:799)\n\tat scala.collection.mutable.HashSet.foreach(HashSet.scala:78)\n\tat org.apache.spark.scheduler.DAGScheduler.handleJobGroupCancelled(DAGScheduler.scala:799)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:1689)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:1669)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:1658)\n\tat org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:48)\n\tat org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:630)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2022)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2119)\n\tat org.apache.spark.rdd.RDD$$anonfun$fold$1.apply(RDD.scala:1089)\n\tat org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)\n\tat org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)\n\tat org.apache.spark.rdd.RDD.withScope(RDD.scala:362)\n\tat org.apache.spark.rdd.RDD.fold(RDD.scala:1083)\n\tat org.apache.spark.sql.execution.datasources.json.JsonInferSchema$.infer(JsonInferSchema.scala:68)\n\tat org.apache.spark.sql.execution.datasources.json.MultiLineJsonDataSource$.infer(JsonDataSource.scala:161)\n\tat org.apache.spark.sql.execution.datasources.json.JsonDataSource.inferSchema(JsonDataSource.scala:62)\n\tat org.apache.spark.sql.execution.datasources.json.JsonFileFormat.inferSchema(JsonFileFormat.scala:57)\n\tat org.apache.spark.sql.execution.datasources.DataSource$$anonfun$7.apply(DataSource.scala:177)\n\tat org.apache.spark.sql.execution.datasources.DataSource$$anonfun$7.apply(DataSource.scala:177)\n\tat scala.Option.orElse(Option.scala:289)\n\tat org.apache.spark.sql.execution.datasources.DataSource.getOrInferFileFormatSchema(DataSource.scala:176)\n\tat org.apache.spark.sql.execution.datasources.DataSource.resolveRelation(DataSource.scala:366)\n\tat org.apache.spark.sql.DataFrameReader.load(DataFrameReader.scala:178)\n\tat org.apache.spark.sql.DataFrameReader.json(DataFrameReader.scala:333)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)\n\tat py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:357)\n\tat py4j.Gateway.invoke(Gateway.java:280)\n\tat py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)\n\tat py4j.commands.CallCommand.execute(CallCommand.java:79)\n\tat py4j.GatewayConnection.run(GatewayConnection.java:214)\n\tat java.lang.Thread.run(Thread.java:748)\n\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-5831977924801407888.py\", line 355, in \u003cmodule\u003e\n    exec(code, _zcUserQueryNameSpace)\n  File \"\u003cstdin\u003e\", line 3, in \u003cmodule\u003e\n  File \"/usr/spark-2.2.0/python/pyspark/sql/readwriter.py\", line 249, in json\n    return self._df(self._jreader.json(self._spark._sc._jvm.PythonUtils.toSeq(path)))\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/java_gateway.py\", line 1160, in __call__\n    answer, self.gateway_client, self.target_id, self.name)\n  File \"/usr/spark-2.2.0/python/pyspark/sql/utils.py\", line 67, in deco\n    e.java_exception.getStackTrace()))\n  File \"/usr/lib/python3.4/_collections_abc.py\", line 639, in __iter__\n    v \u003d self[i]\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/java_collections.py\", line 191, in __getitem__\n    return self.__compute_item(key)\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/java_collections.py\", line 167, in __compute_item\n    new_key \u003d self.__compute_index(key)\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/java_collections.py\", line 156, in __compute_index\n    size \u003d len(self)\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/java_collections.py\", line 239, in __len__\n    return get_return_value(answer, self._gateway_client)\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/protocol.py\", line 313, in get_return_value\n    if is_error(answer)[0]:\n  File \"/usr/spark-2.2.0/python/pyspark/context.py\", line 237, in signal_handler\n    raise KeyboardInterrupt()\nKeyboardInterrupt\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641828521763_-826105915",
+      "id": "20220110-152841_1383701643",
+      "dateCreated": "Jan 10, 2022 3:28:41 PM",
+      "dateStarted": "Jan 10, 2022 4:25:53 PM",
+      "dateFinished": "Jan 10, 2022 4:25:55 PM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 10, 2022 3:36:19 PM",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1641828979867_613085358",
+      "id": "20220110-153619_680774244",
+      "dateCreated": "Jan 10, 2022 3:36:19 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "~Trash/TestHDFS",
+  "id": "2GT9AWQ97",
+  "angularObjects": {
+    "2GSCTPTVM:shared_process": [],
+    "2GS2B16FJ:shared_process": [],
+    "2GQZMVHTA:shared_process": [],
+    "2GTNB394J:shared_process": [],
+    "2GSKN9QPB:shared_process": [],
+    "2GSMNBN3Z:shared_process": [],
+    "2GUDCM5QS:shared_process": [],
+    "2GRQQAU61:shared_process": [],
+    "2GTXDWV5N:shared_process": []
+  },
+  "config": {},
+  "info": {}
+}

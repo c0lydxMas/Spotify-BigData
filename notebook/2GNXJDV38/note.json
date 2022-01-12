@@ -1,0 +1,246 @@
+{
+  "paragraphs": [
+    {
+      "text": "%pyspark\nfrom pyspark import SparkConf, SparkContext\nfrom pyspark.sql import SparkSession, SQLContext\n\nfrom pyspark.sql.types import *\nimport pyspark.sql.functions as F\nfrom pyspark.sql.functions import udf, col\nspark \u003d SparkSession.builder.master(\"spark://master:7077\").appName(\"Test\").getOrCreate()\nsc \u003d spark.sparkContext\nsqlContext \u003d SQLContext(sc)",
+      "user": "anonymous",
+      "dateUpdated": "Jan 9, 2022 2:35:32 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1638896976000_348706163",
+      "id": "20211207-170936_2068309742",
+      "dateCreated": "Dec 7, 2021 5:09:36 PM",
+      "dateStarted": "Jan 9, 2022 2:35:32 PM",
+      "dateFinished": "Jan 9, 2022 2:35:32 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nfrom pyspark import SparkFiles\nlocation\u003d\u0027hdfs://172.18.0.7:9000/Data\u0027\ndf \u003d spark.read.option(\"multiline\",\"true\").json(location)\n#df \u003d spark.read.json(location)\ndf.printSchema()",
+      "user": "anonymous",
+      "dateUpdated": "Jan 9, 2022 2:35:40 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "root\n |-- acousticness: double (nullable \u003d true)\n |-- album: struct (nullable \u003d true)\n |    |-- album_type: string (nullable \u003d true)\n |    |-- artists: array (nullable \u003d true)\n |    |    |-- element: struct (containsNull \u003d true)\n |    |    |    |-- external_urls: struct (nullable \u003d true)\n |    |    |    |    |-- spotify: string (nullable \u003d true)\n |    |    |    |-- href: string (nullable \u003d true)\n |    |    |    |-- id: string (nullable \u003d true)\n |    |    |    |-- name: string (nullable \u003d true)\n |    |    |    |-- type: string (nullable \u003d true)\n |    |    |    |-- uri: string (nullable \u003d true)\n |    |-- available_markets: array (nullable \u003d true)\n |    |    |-- element: string (containsNull \u003d true)\n |    |-- external_urls: struct (nullable \u003d true)\n |    |    |-- spotify: string (nullable \u003d true)\n |    |-- href: string (nullable \u003d true)\n |    |-- id: string (nullable \u003d true)\n |    |-- images: array (nullable \u003d true)\n |    |    |-- element: struct (containsNull \u003d true)\n |    |    |    |-- height: long (nullable \u003d true)\n |    |    |    |-- url: string (nullable \u003d true)\n |    |    |    |-- width: long (nullable \u003d true)\n |    |-- name: string (nullable \u003d true)\n |    |-- release_date: string (nullable \u003d true)\n |    |-- release_date_precision: string (nullable \u003d true)\n |    |-- total_tracks: long (nullable \u003d true)\n |    |-- type: string (nullable \u003d true)\n |    |-- uri: string (nullable \u003d true)\n |-- analysis_url: string (nullable \u003d true)\n |-- artists: array (nullable \u003d true)\n |    |-- element: struct (containsNull \u003d true)\n |    |    |-- external_urls: struct (nullable \u003d true)\n |    |    |    |-- spotify: string (nullable \u003d true)\n |    |    |-- href: string (nullable \u003d true)\n |    |    |-- id: string (nullable \u003d true)\n |    |    |-- name: string (nullable \u003d true)\n |    |    |-- type: string (nullable \u003d true)\n |    |    |-- uri: string (nullable \u003d true)\n |-- available_markets: array (nullable \u003d true)\n |    |-- element: string (containsNull \u003d true)\n |-- danceability: double (nullable \u003d true)\n |-- disc_number: long (nullable \u003d true)\n |-- duration_ms: long (nullable \u003d true)\n |-- energy: double (nullable \u003d true)\n |-- explicit: boolean (nullable \u003d true)\n |-- external_ids: struct (nullable \u003d true)\n |    |-- isrc: string (nullable \u003d true)\n |-- external_urls: struct (nullable \u003d true)\n |    |-- spotify: string (nullable \u003d true)\n |-- href: string (nullable \u003d true)\n |-- id: string (nullable \u003d true)\n |-- instrumentalness: double (nullable \u003d true)\n |-- is_local: boolean (nullable \u003d true)\n |-- key: long (nullable \u003d true)\n |-- liveness: double (nullable \u003d true)\n |-- loudness: double (nullable \u003d true)\n |-- mode: long (nullable \u003d true)\n |-- name: string (nullable \u003d true)\n |-- popularity: long (nullable \u003d true)\n |-- preview_url: string (nullable \u003d true)\n |-- speechiness: double (nullable \u003d true)\n |-- tempo: double (nullable \u003d true)\n |-- time_signature: long (nullable \u003d true)\n |-- track_href: string (nullable \u003d true)\n |-- track_number: long (nullable \u003d true)\n |-- type: string (nullable \u003d true)\n |-- uri: string (nullable \u003d true)\n |-- valence: double (nullable \u003d true)\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641738895588_399311385",
+      "id": "20220109-143455_1189529118",
+      "dateCreated": "Jan 9, 2022 2:34:55 PM",
+      "dateStarted": "Jan 9, 2022 2:35:40 PM",
+      "dateFinished": "Jan 9, 2022 2:35:40 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\ndf2\u003ddf.select(\u0027artists\u0027)\ndf2.printSchema()",
+      "user": "anonymous",
+      "dateUpdated": "Jan 9, 2022 2:38:52 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "root\n |-- artists: array (nullable \u003d true)\n |    |-- element: struct (containsNull \u003d true)\n |    |    |-- external_urls: struct (nullable \u003d true)\n |    |    |    |-- spotify: string (nullable \u003d true)\n |    |    |-- href: string (nullable \u003d true)\n |    |    |-- id: string (nullable \u003d true)\n |    |    |-- name: string (nullable \u003d true)\n |    |    |-- type: string (nullable \u003d true)\n |    |    |-- uri: string (nullable \u003d true)\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641738940027_1007042792",
+      "id": "20220109-143540_1482191382",
+      "dateCreated": "Jan 9, 2022 2:35:40 PM",
+      "dateStarted": "Jan 9, 2022 2:38:52 PM",
+      "dateFinished": "Jan 9, 2022 2:38:52 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n#df2.collect()[0].artists[0][\u0027name\u0027]\ndf2.collect()[0][0][0][3]",
+      "user": "anonymous",
+      "dateUpdated": "Jan 9, 2022 4:06:04 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u0027iKON\u0027\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641740689883_-2015233150",
+      "id": "20220109-150449_487863054",
+      "dateCreated": "Jan 9, 2022 3:04:49 PM",
+      "dateStarted": "Jan 9, 2022 4:06:04 PM",
+      "dateFinished": "Jan 9, 2022 4:06:04 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n#df3 \u003d df2.withColumn(\u0027artists\u0027,df.artists[0][\u0027name\u0027])\n#df3 \u003d df2.withColumn(\u0027new_artists\u0027, \u0027\u0026\u0027.join(df.artists[0][\u0027name\u0027]))\n#concat_udf\u003dudf(lambda arr: [x+x for x in arr],ArrayType(StringType()))\n#ret \u003d df2.withColumn(\u0027concat_result\u0027, concat_udf(col(\u0027artists\u0027)))\n\n@udf\ndef concat_udf(artists_array):\n    _artists \u003d \u0027\u0027\n    i\u003d0\n    for artist in artists_array:\n        if(i\u003d\u003d0):\n            _artists \u003d artist[\u0027name\u0027]\n            i+\u003d1\n        else:\n            _artists \u003d _artists + \u0027 \u0026 \u0027 + artist[\u0027name\u0027]\n    return _artists\n    \ndf3 \u003d df2.withColumn(\u0027artists\u0027,concat_udf(col(\u0027artists\u0027)))\ndf3.show(truncate\u003dFalse)",
+      "user": "anonymous",
+      "dateUpdated": "Jan 9, 2022 4:30:33 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+-----------------------------------------------------+\n|artists                                              |\n+-----------------------------------------------------+\n|iKON                                                 |\n|Jun Phạm                                             |\n|TLDK                                                 |\n|Truc Nhan                                            |\n|Ed Sheeran                                           |\n|Mỹ Tâm                                               |\n|Shawn Mendes                                         |\n|Andiez                                               |\n|ZAYN \u0026 Sia                                           |\n|The Chainsmokers \u0026 Winona Oak                        |\n|Alex \u0026 Sierra                                        |\n|WINNER                                               |\n|Alan Walker \u0026 Sophia Somajo                          |\n|Alan Walker \u0026 Sorana                                 |\n|Dua Lipa                                             |\n|Martin Garrix \u0026 David Guetta \u0026 Jamie Scott \u0026 Romy Dya|\n|Ariana Grande                                        |\n|Taylor Swift                                         |\n|Mỹ Tâm                                               |\n|Đông Nhi                                             |\n+-----------------------------------------------------+\nonly showing top 20 rows\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641739008603_-1860598029",
+      "id": "20220109-143648_1007303664",
+      "dateCreated": "Jan 9, 2022 2:36:48 PM",
+      "dateStarted": "Jan 9, 2022 4:30:33 PM",
+      "dateFinished": "Jan 9, 2022 4:30:33 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\ndf3.show()",
+      "user": "anonymous",
+      "dateUpdated": "Jan 9, 2022 4:20:09 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Traceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-9065869845016432762.py\", line 360, in \u003cmodule\u003e\n    exec(code, _zcUserQueryNameSpace)\n  File \"\u003cstdin\u003e\", line 1, in \u003cmodule\u003e\n  File \"/usr/spark-2.2.0/python/pyspark/sql/dataframe.py\", line 336, in show\n    print(self._jdf.showString(n, 20))\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/java_gateway.py\", line 1160, in __call__\n    answer, self.gateway_client, self.target_id, self.name)\n  File \"/usr/spark-2.2.0/python/pyspark/sql/utils.py\", line 63, in deco\n    return f(*a, **kw)\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/protocol.py\", line 320, in get_return_value\n    format(target_id, \".\", name), value)\npy4j.protocol.Py4JJavaError: An error occurred while calling o2120.showString.\n: org.apache.spark.SparkException: Job aborted due to stage failure: Task 0 in stage 186.0 failed 4 times, most recent failure: Lost task 0.3 in stage 186.0 (TID 1725, 172.18.0.3, executor 0): org.apache.spark.api.python.PythonException: Traceback (most recent call last):\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/sql/types.py\", line 1486, in __getitem__\n    idx \u003d self.__fields__.index(item)\nValueError: \u0027name\u0027 is not in list\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/worker.py\", line 177, in main\n    process()\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/worker.py\", line 172, in process\n    serializer.dump_stream(func(split_index, iterator), outfile)\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/serializers.py\", line 220, in dump_stream\n    self.serializer.dump_stream(self._batched(iterator), stream)\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/serializers.py\", line 138, in dump_stream\n    for obj in iterator:\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/serializers.py\", line 209, in _batched\n    for item in iterator:\n  File \"\u003cstring\u003e\", line 1, in \u003clambda\u003e\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/worker.py\", line 71, in \u003clambda\u003e\n    return lambda *a: f(*a)\n  File \"\u003cstdin\u003e\", line 7, in concat_udf\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/sql/types.py\", line 1491, in __getitem__\n    raise ValueError(item)\nValueError: name\n\n\tat org.apache.spark.api.python.PythonRunner$$anon$1.read(PythonRDD.scala:193)\n\tat org.apache.spark.api.python.PythonRunner$$anon$1.\u003cinit\u003e(PythonRDD.scala:234)\n\tat org.apache.spark.api.python.PythonRunner.compute(PythonRDD.scala:152)\n\tat org.apache.spark.sql.execution.python.BatchEvalPythonExec$$anonfun$doExecute$1.apply(BatchEvalPythonExec.scala:144)\n\tat org.apache.spark.sql.execution.python.BatchEvalPythonExec$$anonfun$doExecute$1.apply(BatchEvalPythonExec.scala:87)\n\tat org.apache.spark.rdd.RDD$$anonfun$mapPartitions$1$$anonfun$apply$23.apply(RDD.scala:797)\n\tat org.apache.spark.rdd.RDD$$anonfun$mapPartitions$1$$anonfun$apply$23.apply(RDD.scala:797)\n\tat org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:38)\n\tat org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:323)\n\tat org.apache.spark.rdd.RDD.iterator(RDD.scala:287)\n\tat org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:38)\n\tat org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:323)\n\tat org.apache.spark.rdd.RDD.iterator(RDD.scala:287)\n\tat org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:38)\n\tat org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:323)\n\tat org.apache.spark.rdd.RDD.iterator(RDD.scala:287)\n\tat org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:87)\n\tat org.apache.spark.scheduler.Task.run(Task.scala:108)\n\tat org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:335)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\n\tat java.lang.Thread.run(Thread.java:748)\n\nDriver stacktrace:\n\tat org.apache.spark.scheduler.DAGScheduler.org$apache$spark$scheduler$DAGScheduler$$failJobAndIndependentStages(DAGScheduler.scala:1499)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$abortStage$1.apply(DAGScheduler.scala:1487)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$abortStage$1.apply(DAGScheduler.scala:1486)\n\tat scala.collection.mutable.ResizableArray$class.foreach(ResizableArray.scala:59)\n\tat scala.collection.mutable.ArrayBuffer.foreach(ArrayBuffer.scala:48)\n\tat org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:1486)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$handleTaskSetFailed$1.apply(DAGScheduler.scala:814)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$handleTaskSetFailed$1.apply(DAGScheduler.scala:814)\n\tat scala.Option.foreach(Option.scala:257)\n\tat org.apache.spark.scheduler.DAGScheduler.handleTaskSetFailed(DAGScheduler.scala:814)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:1714)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:1669)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:1658)\n\tat org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:48)\n\tat org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:630)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2022)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2043)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2062)\n\tat org.apache.spark.sql.execution.SparkPlan.executeTake(SparkPlan.scala:336)\n\tat org.apache.spark.sql.execution.CollectLimitExec.executeCollect(limit.scala:38)\n\tat org.apache.spark.sql.Dataset.org$apache$spark$sql$Dataset$$collectFromPlan(Dataset.scala:2853)\n\tat org.apache.spark.sql.Dataset$$anonfun$head$1.apply(Dataset.scala:2153)\n\tat org.apache.spark.sql.Dataset$$anonfun$head$1.apply(Dataset.scala:2153)\n\tat org.apache.spark.sql.Dataset$$anonfun$55.apply(Dataset.scala:2837)\n\tat org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:65)\n\tat org.apache.spark.sql.Dataset.withAction(Dataset.scala:2836)\n\tat org.apache.spark.sql.Dataset.head(Dataset.scala:2153)\n\tat org.apache.spark.sql.Dataset.take(Dataset.scala:2366)\n\tat org.apache.spark.sql.Dataset.showString(Dataset.scala:245)\n\tat sun.reflect.GeneratedMethodAccessor106.invoke(Unknown Source)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)\n\tat py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:357)\n\tat py4j.Gateway.invoke(Gateway.java:280)\n\tat py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)\n\tat py4j.commands.CallCommand.execute(CallCommand.java:79)\n\tat py4j.GatewayConnection.run(GatewayConnection.java:214)\n\tat java.lang.Thread.run(Thread.java:748)\nCaused by: org.apache.spark.api.python.PythonException: Traceback (most recent call last):\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/sql/types.py\", line 1486, in __getitem__\n    idx \u003d self.__fields__.index(item)\nValueError: \u0027name\u0027 is not in list\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/worker.py\", line 177, in main\n    process()\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/worker.py\", line 172, in process\n    serializer.dump_stream(func(split_index, iterator), outfile)\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/serializers.py\", line 220, in dump_stream\n    self.serializer.dump_stream(self._batched(iterator), stream)\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/serializers.py\", line 138, in dump_stream\n    for obj in iterator:\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/serializers.py\", line 209, in _batched\n    for item in iterator:\n  File \"\u003cstring\u003e\", line 1, in \u003clambda\u003e\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/worker.py\", line 71, in \u003clambda\u003e\n    return lambda *a: f(*a)\n  File \"\u003cstdin\u003e\", line 7, in concat_udf\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/sql/types.py\", line 1491, in __getitem__\n    raise ValueError(item)\nValueError: name\n\n\tat org.apache.spark.api.python.PythonRunner$$anon$1.read(PythonRDD.scala:193)\n\tat org.apache.spark.api.python.PythonRunner$$anon$1.\u003cinit\u003e(PythonRDD.scala:234)\n\tat org.apache.spark.api.python.PythonRunner.compute(PythonRDD.scala:152)\n\tat org.apache.spark.sql.execution.python.BatchEvalPythonExec$$anonfun$doExecute$1.apply(BatchEvalPythonExec.scala:144)\n\tat org.apache.spark.sql.execution.python.BatchEvalPythonExec$$anonfun$doExecute$1.apply(BatchEvalPythonExec.scala:87)\n\tat org.apache.spark.rdd.RDD$$anonfun$mapPartitions$1$$anonfun$apply$23.apply(RDD.scala:797)\n\tat org.apache.spark.rdd.RDD$$anonfun$mapPartitions$1$$anonfun$apply$23.apply(RDD.scala:797)\n\tat org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:38)\n\tat org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:323)\n\tat org.apache.spark.rdd.RDD.iterator(RDD.scala:287)\n\tat org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:38)\n\tat org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:323)\n\tat org.apache.spark.rdd.RDD.iterator(RDD.scala:287)\n\tat org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:38)\n\tat org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:323)\n\tat org.apache.spark.rdd.RDD.iterator(RDD.scala:287)\n\tat org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:87)\n\tat org.apache.spark.scheduler.Task.run(Task.scala:108)\n\tat org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:335)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\n\t... 1 more\n\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-9065869845016432762.py\", line 367, in \u003cmodule\u003e\n    raise Exception(traceback.format_exc())\nException: Traceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-9065869845016432762.py\", line 360, in \u003cmodule\u003e\n    exec(code, _zcUserQueryNameSpace)\n  File \"\u003cstdin\u003e\", line 1, in \u003cmodule\u003e\n  File \"/usr/spark-2.2.0/python/pyspark/sql/dataframe.py\", line 336, in show\n    print(self._jdf.showString(n, 20))\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/java_gateway.py\", line 1160, in __call__\n    answer, self.gateway_client, self.target_id, self.name)\n  File \"/usr/spark-2.2.0/python/pyspark/sql/utils.py\", line 63, in deco\n    return f(*a, **kw)\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/protocol.py\", line 320, in get_return_value\n    format(target_id, \".\", name), value)\npy4j.protocol.Py4JJavaError: An error occurred while calling o2120.showString.\n: org.apache.spark.SparkException: Job aborted due to stage failure: Task 0 in stage 186.0 failed 4 times, most recent failure: Lost task 0.3 in stage 186.0 (TID 1725, 172.18.0.3, executor 0): org.apache.spark.api.python.PythonException: Traceback (most recent call last):\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/sql/types.py\", line 1486, in __getitem__\n    idx \u003d self.__fields__.index(item)\nValueError: \u0027name\u0027 is not in list\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/worker.py\", line 177, in main\n    process()\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/worker.py\", line 172, in process\n    serializer.dump_stream(func(split_index, iterator), outfile)\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/serializers.py\", line 220, in dump_stream\n    self.serializer.dump_stream(self._batched(iterator), stream)\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/serializers.py\", line 138, in dump_stream\n    for obj in iterator:\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/serializers.py\", line 209, in _batched\n    for item in iterator:\n  File \"\u003cstring\u003e\", line 1, in \u003clambda\u003e\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/worker.py\", line 71, in \u003clambda\u003e\n    return lambda *a: f(*a)\n  File \"\u003cstdin\u003e\", line 7, in concat_udf\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/sql/types.py\", line 1491, in __getitem__\n    raise ValueError(item)\nValueError: name\n\n\tat org.apache.spark.api.python.PythonRunner$$anon$1.read(PythonRDD.scala:193)\n\tat org.apache.spark.api.python.PythonRunner$$anon$1.\u003cinit\u003e(PythonRDD.scala:234)\n\tat org.apache.spark.api.python.PythonRunner.compute(PythonRDD.scala:152)\n\tat org.apache.spark.sql.execution.python.BatchEvalPythonExec$$anonfun$doExecute$1.apply(BatchEvalPythonExec.scala:144)\n\tat org.apache.spark.sql.execution.python.BatchEvalPythonExec$$anonfun$doExecute$1.apply(BatchEvalPythonExec.scala:87)\n\tat org.apache.spark.rdd.RDD$$anonfun$mapPartitions$1$$anonfun$apply$23.apply(RDD.scala:797)\n\tat org.apache.spark.rdd.RDD$$anonfun$mapPartitions$1$$anonfun$apply$23.apply(RDD.scala:797)\n\tat org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:38)\n\tat org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:323)\n\tat org.apache.spark.rdd.RDD.iterator(RDD.scala:287)\n\tat org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:38)\n\tat org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:323)\n\tat org.apache.spark.rdd.RDD.iterator(RDD.scala:287)\n\tat org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:38)\n\tat org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:323)\n\tat org.apache.spark.rdd.RDD.iterator(RDD.scala:287)\n\tat org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:87)\n\tat org.apache.spark.scheduler.Task.run(Task.scala:108)\n\tat org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:335)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\n\tat java.lang.Thread.run(Thread.java:748)\n\nDriver stacktrace:\n\tat org.apache.spark.scheduler.DAGScheduler.org$apache$spark$scheduler$DAGScheduler$$failJobAndIndependentStages(DAGScheduler.scala:1499)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$abortStage$1.apply(DAGScheduler.scala:1487)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$abortStage$1.apply(DAGScheduler.scala:1486)\n\tat scala.collection.mutable.ResizableArray$class.foreach(ResizableArray.scala:59)\n\tat scala.collection.mutable.ArrayBuffer.foreach(ArrayBuffer.scala:48)\n\tat org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:1486)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$handleTaskSetFailed$1.apply(DAGScheduler.scala:814)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$handleTaskSetFailed$1.apply(DAGScheduler.scala:814)\n\tat scala.Option.foreach(Option.scala:257)\n\tat org.apache.spark.scheduler.DAGScheduler.handleTaskSetFailed(DAGScheduler.scala:814)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:1714)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:1669)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:1658)\n\tat org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:48)\n\tat org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:630)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2022)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2043)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2062)\n\tat org.apache.spark.sql.execution.SparkPlan.executeTake(SparkPlan.scala:336)\n\tat org.apache.spark.sql.execution.CollectLimitExec.executeCollect(limit.scala:38)\n\tat org.apache.spark.sql.Dataset.org$apache$spark$sql$Dataset$$collectFromPlan(Dataset.scala:2853)\n\tat org.apache.spark.sql.Dataset$$anonfun$head$1.apply(Dataset.scala:2153)\n\tat org.apache.spark.sql.Dataset$$anonfun$head$1.apply(Dataset.scala:2153)\n\tat org.apache.spark.sql.Dataset$$anonfun$55.apply(Dataset.scala:2837)\n\tat org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:65)\n\tat org.apache.spark.sql.Dataset.withAction(Dataset.scala:2836)\n\tat org.apache.spark.sql.Dataset.head(Dataset.scala:2153)\n\tat org.apache.spark.sql.Dataset.take(Dataset.scala:2366)\n\tat org.apache.spark.sql.Dataset.showString(Dataset.scala:245)\n\tat sun.reflect.GeneratedMethodAccessor106.invoke(Unknown Source)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)\n\tat py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:357)\n\tat py4j.Gateway.invoke(Gateway.java:280)\n\tat py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)\n\tat py4j.commands.CallCommand.execute(CallCommand.java:79)\n\tat py4j.GatewayConnection.run(GatewayConnection.java:214)\n\tat java.lang.Thread.run(Thread.java:748)\nCaused by: org.apache.spark.api.python.PythonException: Traceback (most recent call last):\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/sql/types.py\", line 1486, in __getitem__\n    idx \u003d self.__fields__.index(item)\nValueError: \u0027name\u0027 is not in list\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/worker.py\", line 177, in main\n    process()\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/worker.py\", line 172, in process\n    serializer.dump_stream(func(split_index, iterator), outfile)\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/serializers.py\", line 220, in dump_stream\n    self.serializer.dump_stream(self._batched(iterator), stream)\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/serializers.py\", line 138, in dump_stream\n    for obj in iterator:\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/serializers.py\", line 209, in _batched\n    for item in iterator:\n  File \"\u003cstring\u003e\", line 1, in \u003clambda\u003e\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/worker.py\", line 71, in \u003clambda\u003e\n    return lambda *a: f(*a)\n  File \"\u003cstdin\u003e\", line 7, in concat_udf\n  File \"/usr/spark-2.2.0/python/lib/pyspark.zip/pyspark/sql/types.py\", line 1491, in __getitem__\n    raise ValueError(item)\nValueError: name\n\n\tat org.apache.spark.api.python.PythonRunner$$anon$1.read(PythonRDD.scala:193)\n\tat org.apache.spark.api.python.PythonRunner$$anon$1.\u003cinit\u003e(PythonRDD.scala:234)\n\tat org.apache.spark.api.python.PythonRunner.compute(PythonRDD.scala:152)\n\tat org.apache.spark.sql.execution.python.BatchEvalPythonExec$$anonfun$doExecute$1.apply(BatchEvalPythonExec.scala:144)\n\tat org.apache.spark.sql.execution.python.BatchEvalPythonExec$$anonfun$doExecute$1.apply(BatchEvalPythonExec.scala:87)\n\tat org.apache.spark.rdd.RDD$$anonfun$mapPartitions$1$$anonfun$apply$23.apply(RDD.scala:797)\n\tat org.apache.spark.rdd.RDD$$anonfun$mapPartitions$1$$anonfun$apply$23.apply(RDD.scala:797)\n\tat org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:38)\n\tat org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:323)\n\tat org.apache.spark.rdd.RDD.iterator(RDD.scala:287)\n\tat org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:38)\n\tat org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:323)\n\tat org.apache.spark.rdd.RDD.iterator(RDD.scala:287)\n\tat org.apache.spark.rdd.MapPartitionsRDD.compute(MapPartitionsRDD.scala:38)\n\tat org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:323)\n\tat org.apache.spark.rdd.RDD.iterator(RDD.scala:287)\n\tat org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:87)\n\tat org.apache.spark.scheduler.Task.run(Task.scala:108)\n\tat org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:335)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\n\t... 1 more\n\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641739143815_960997162",
+      "id": "20220109-143903_777237694",
+      "dateCreated": "Jan 9, 2022 2:39:03 PM",
+      "dateStarted": "Jan 9, 2022 4:20:09 PM",
+      "dateFinished": "Jan 9, 2022 4:20:09 PM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 9, 2022 4:18:20 PM",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1641745100982_863158142",
+      "id": "20220109-161820_1473071241",
+      "dateCreated": "Jan 9, 2022 4:18:20 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "Untitled Note 1",
+  "id": "2GNXJDV38",
+  "angularObjects": {
+    "2GSCTPTVM:shared_process": [],
+    "2GS2B16FJ:shared_process": [],
+    "2GQZMVHTA:shared_process": [],
+    "2GTNB394J:shared_process": [],
+    "2GSKN9QPB:shared_process": [],
+    "2GSMNBN3Z:shared_process": [],
+    "2GUDCM5QS:shared_process": [],
+    "2GRQQAU61:shared_process": [],
+    "2GTXDWV5N:shared_process": []
+  },
+  "config": {},
+  "info": {}
+}

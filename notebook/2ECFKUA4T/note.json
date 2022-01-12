@@ -1,0 +1,86 @@
+{
+  "paragraphs": [
+    {
+      "title": "Input is a text file",
+      "text": "%pyspark\nfrom operator import add\n\n# Read data\ninput \u003d sc.textFile(\"file:///README.md\")\n\n# MapReduce\ncounts \u003d input.flatMap(lambda x: x.split(\u0027 \u0027)).map(lambda x: (x, 1)).reduceByKey(lambda x,y:x+y)\n\n# Output\noutput \u003d counts.collect()\nfor (word, count) in output:\n    print(\"%s: %i\" % (word, count))",
+      "user": "anonymous",
+      "dateUpdated": "Jan 3, 2022 3:41:41 AM",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/python",
+        "title": true,
+        "results": {},
+        "enabled": true,
+        "tableHide": false,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": ": 30\n\u003cproperty\u003e\u003cname\u003efs.defaultFS\u003c/name\u003e\u003cvalue\u003ehdfs://namenode:8020\u003c/value\u003e\u003c/property\u003e: 1\nthese: 1\nCORE_CONF_fs_defaultFS\u003dhdfs://namenode:8020: 1\nYARN_CONF: 1\nare: 1\nIP: 1\nđịnh: 1\nare:: 1\nDatanode:: 1\nfollowing: 1\n/etc/hadoop/mapred-site.xml: 1\nmaster-spark:192.168.0.100: 1\nConfigure: 1\nas: 2\ntrữ: 1\nserver:: 1\nnetwork: 4\nscript: 1\nKMS_CONF: 1\ndocker-compose.yml: 1\nThe: 2\npublished: 1\nví: 1\n(master-spark): 1\n(yarn-site.xml):: 1\n(e.g.: 2\nthành: 1\nstack: 1\nnamenode,: 1\nan: 1\nmaster: 1\n`dockerhadoop_default`.: 1\nworker: 1\nuses: 1\n/etc/hadoop/httpfs-site.xml: 1\nelasticsearch: 2\ntransformed: 1\nChỉnh: 2\n[![Gitter: 1\ntrên: 1\nkết: 1\nswarm:: 1\nrun: 1\n/etc/hadoop/kms-site.xml: 1\n#: 3\ndatanode: 1\nđể: 3\ndocker-compose: 4\nHDFS: 1\ncorresponds: 1\nbranches: 1\nstep: 1\nconfiguration: 3\ne.g.: 1\n*: 11\nNodemanager:: 1\nchuyển: 1\nNamenode:: 1\nmake: 1\ndocker: 3\nrun:: 1\nhttp://\u003cdockerhadoop_IP_address\u003e:8042/node: 1\nexec: 1\nspark://192.168.0.100:7077: 2\nhadoop: 3\ninterfaces: 2\nmaster:: 1\nSPARK_MASTER\u003dspark://master-spark:7077: 1\nStart: 1\nBuild: 1\ninto:: 1\nspecific: 1\nrefer: 1\nvào: 1\njob:: 1\nuse: 1\nhttp://\u003cdockerhadoop_IP_address\u003e:8188/applicationhistory: 1\nchat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/big-data-europe/Lobby): 1\nHTTPFS_CONF: 1\nother: 1\nYARN_CONF_yarn_log___aggregation___enable\u003dtrue: 1\n-c: 1\nstartup: 1\nhttp://\u003cdockerhadoop_IP_address\u003e:8088/: 1\nOr: 1\netc.):: 1\nliệu:: 1\nversions: 1\nHDFS_CONF: 1\nin: 2\ncore-site.xml.: 1\nCài: 2\nsome: 1\nparameters: 1\nURLs:: 1\nwill: 1\nRun: 3\ntrong:: 1\n\u003cproperty\u003e\u003cname\u003eyarn.log-aggregation-enable\u003c/name\u003e\u003cvalue\u003etrue\u003c/value\u003e\u003c/property\u003e: 1\ndocker-compose-v3.yml: 1\nspark_master: 3\ninterpreter: 1\nfind: 1\ncreates: 1\nconfigurations: 1\nmáy,: 1\nspecified: 1\nnối: 1\nLecture: 1\ncluster,: 1\n`docker-compose`: 1\ndụ: 1\n/usr/spark-2.2.0/sbin/start-slave.sh: 1\nyou: 1\nintroduces: 1\nCORE_CONF: 2\nmôt: 1\nlist`,: 1\nwordcount: 2\nexample: 2\nor: 1\nby: 2\nSupported: 1\nfor: 3\nResource: 1\ntại: 1\nVersion: 1\n`dockerhadoop_default`): 1\nSửa: 1\nwait_for_it: 1\ndữ: 2\nHistory: 1\nStep: 1\ntrung: 1\nfile,: 1\nenvironmental: 1\nvariables: 1\nwith: 1\n-it: 1\n`docker: 2\n```: 12\nMAPRED_CONF: 1\nEnvironment: 1\nmanager:: 1\nbash:: 1\non: 1\nneed: 1\nChanges: 1\ncrawler:: 1\nlưu: 1\nAccess: 1\nSee: 1\nhttp://localhost/#/interpreter: 1\nTo: 2\n2.0.0: 1\nthe: 6\nsupported: 1\nbuild: 1\nfound: 1\ndeploy: 3\nto: 5\nVersions: 1\non.: 1\nChạy: 2\navailable: 1\n+: 9\nrepository: 1\nDocker: 1\nnode: 1\ncluster: 2\nscript.: 1\n/etc/hadoop/core-site.xml: 1\nbe: 3\ndefine: 1\nVariables: 1\nparameter,: 1\nnote: 1\nhadoop.env: 1\nservices: 1\nfs_defaultFS\u003dhdfs://namenode:8020: 1\na: 3\nZeppelin: 1\n--build: 2\n/etc/hadoop/yarn-site.xml: 1\nrunning: 1\nrabbitmq: 2\ntriple: 1\nbase/entrypoint.sh: 1\nthat: 1\ntừ: 1\nextend: 1\nfile: 2\ncủa: 1\nliệu: 1\n/etc/hadoop/hdfs-site.xml: 1\ninspect`: 1\nhttp://\u003cdockerhadoop_IP_address\u003e:9870/dfshealth.html#tab-overview: 1\nHadoop: 2\nQuick: 1\nhttp://\u003cdockerhadoop_IP_address\u003e:9864/: 1\nnghĩa: 1\nunderscore,: 1\ninside: 1\n192.168.0.100: 1\nsuch: 1\n-d: 2\nup: 3\nspark: 1\nIf: 1\nimage:: 1\ndash: 1\nbash: 2\n##: 4\ncan: 2\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1559877992180_-1244945934",
+      "id": "20190519-071415_1962473504",
+      "dateCreated": "Jun 7, 2019 3:26:32 AM",
+      "dateStarted": "Jan 3, 2022 3:41:41 AM",
+      "dateFinished": "Jan 3, 2022 3:41:45 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n",
+      "dateUpdated": "Dec 7, 2021 2:00:46 PM",
+      "config": {
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/python",
+        "results": {},
+        "enabled": true,
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1559877992181_-1245330683",
+      "id": "20190519-071929_401743350",
+      "dateCreated": "Jun 7, 2019 3:26:32 AM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "/Big-data-class/Module-09/Word-count",
+  "id": "2ECFKUA4T",
+  "angularObjects": {
+    "2GSX72S7V:shared_process": [],
+    "2GUAMR5HK:shared_process": [],
+    "2GSK32BB6:shared_process": [],
+    "2GS62ZVR9:shared_process": [],
+    "2GTK8JVB4:shared_process": [],
+    "2GQUHC1PA:shared_process": [],
+    "2GSPBFHS5:shared_process": [],
+    "2GSYU89QR:shared_process": [],
+    "2GTM4T3A6:shared_process": []
+  },
+  "config": {},
+  "info": {}
+}

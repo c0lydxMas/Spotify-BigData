@@ -1,0 +1,699 @@
+{
+  "paragraphs": [
+    {
+      "text": "%pyspark\r\nimport numpy as np \r\nimport pandas as pd\r\nimport os\r\n#import seaborn as sns\r\n#import matplotlib.pyplot as plt\r\n#import plotly.express as px\r\n# these 2 lines fix a sporatic loading error in plotly\r\n#from plotly.offline import plot\r\n#sns.set_style(\u0027darkgrid\u0027)\r\n# pyspark\r\nfrom pyspark import SparkConf, SparkContext\r\nfrom pyspark.sql import SparkSession, SQLContext\r\n\r\nfrom pyspark.sql.types import *\r\nimport pyspark.sql.functions as F\r\nfrom pyspark.sql.functions import udf, col",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 4:30:00 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1641303347612_1550828974",
+      "id": "20220104-133547_532807619",
+      "dateCreated": "Jan 4, 2022 1:35:47 PM",
+      "dateStarted": "Jan 4, 2022 4:30:00 PM",
+      "dateFinished": "Jan 4, 2022 4:30:26 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nspark \u003d SparkSession.builder.master(\"spark://master:7077\").appName(\"Spotify-Big-Data-Analysis\").getOrCreate()\nsc \u003d spark.sparkContext\nsqlContext \u003d SQLContext(sc)",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 4:30:30 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1641303355791_-1606805249",
+      "id": "20220104-133555_1110275810",
+      "dateCreated": "Jan 4, 2022 1:35:55 PM",
+      "dateStarted": "Jan 4, 2022 4:30:31 PM",
+      "dateFinished": "Jan 4, 2022 4:30:31 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nfrom pyspark import SparkFiles\nlocation\u003d\u0027hdfs://172.18.0.7:9000/SpotifyFeatures.csv\u0027\ndf \u003d spark.read.format(\"csv\").option(\"header\",\"true\").load(location)\ndf.printSchema()",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 4:38:58 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "root\n |-- genre: string (nullable \u003d true)\n |-- artist_name: string (nullable \u003d true)\n |-- track_name: string (nullable \u003d true)\n |-- track_id: string (nullable \u003d true)\n |-- popularity: string (nullable \u003d true)\n |-- acousticness: string (nullable \u003d true)\n |-- danceability: string (nullable \u003d true)\n |-- duration_ms: string (nullable \u003d true)\n |-- energy: string (nullable \u003d true)\n |-- instrumentalness: string (nullable \u003d true)\n |-- key: string (nullable \u003d true)\n |-- liveness: string (nullable \u003d true)\n |-- loudness: string (nullable \u003d true)\n |-- mode: string (nullable \u003d true)\n |-- speechiness: string (nullable \u003d true)\n |-- tempo: string (nullable \u003d true)\n |-- time_signature: string (nullable \u003d true)\n |-- valence: string (nullable \u003d true)\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641303380060_546111678",
+      "id": "20220104-133620_602715753",
+      "dateCreated": "Jan 4, 2022 1:36:20 PM",
+      "dateStarted": "Jan 4, 2022 4:38:58 PM",
+      "dateFinished": "Jan 4, 2022 4:38:58 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\ndf.count()",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 4:31:27 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "586672\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641305611238_304640966",
+      "id": "20220104-141331_1492296497",
+      "dateCreated": "Jan 4, 2022 2:13:31 PM",
+      "dateStarted": "Jan 4, 2022 4:31:27 PM",
+      "dateFinished": "Jan 4, 2022 4:31:30 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\ndf.limit(5).toPandas().head()",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 2:44:19 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "      Country0                                                Uri  \\\n0       Global  https://open.spotify.com/track/6FyRXC8tJUh863J...   \n1          USA  https://open.spotify.com/track/6FyRXC8tJUh863J...   \n2    Argentina  https://open.spotify.com/track/6FyRXC8tJUh863J...   \n3      Belgium  https://open.spotify.com/track/6FyRXC8tJUh863J...   \n4  Switzerland  https://open.spotify.com/track/6FyRXC8tJUh863J...   \n\n          Popularity       Title        Artist Album/Single  \\\n0           31833.95  adan y eva  Paulo Londra       single   \n1                8.0  adan y eva  Paulo Londra       single   \n2            76924.4  adan y eva  Paulo Londra       single   \n3  849.6000000000001  adan y eva  Paulo Londra       single   \n4            20739.1  adan y eva  Paulo Londra       single   \n\n               Genre Artist_followers Explicit      Album9  \\\n0  argentine hip hop       11427104.0    False  Adan y Eva   \n1  argentine hip hop       11427104.0    False  Adan y Eva   \n2  argentine hip hop       11427104.0    False  Adan y Eva   \n3  argentine hip hop       11427104.0    False  Adan y Eva   \n4  argentine hip hop       11427104.0    False  Adan y Eva   \n\n              ...              Sweden Switzerland Taiwan Turkey UK USA  \\\n0             ...                   0           0      0      0  0   0   \n1             ...                   0           0      0      0  0   1   \n2             ...                   0           0      0      0  0   0   \n3             ...                   0           0      0      0  0   0   \n4             ...                   0           1      0      0  0   0   \n\n  Popu_max Top10_dummy Top50_dummy                      Cluster  \n0       10         1.0         1.0                       global  \n1      191         0.0         0.0  english speaking and nordic  \n2        1         1.0         1.0             spanish speaking  \n3      126         0.0         0.0  english speaking and nordic  \n4       21         0.0         1.0  english speaking and nordic  \n\n[5 rows x 151 columns]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641304920497_1975443975",
+      "id": "20220104-140200_555740822",
+      "dateCreated": "Jan 4, 2022 2:02:00 PM",
+      "dateStarted": "Jan 4, 2022 2:44:19 PM",
+      "dateFinished": "Jan 4, 2022 2:44:20 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nresult_df \u003d df.groupBy(\"Artist\") \\\n              .count() \\\n              .orderBy(\"count\", ascending\u003dFalse) \\\n              .limit(10) \\\n              .toPandas()\nresult_df.head(10)",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 2:44:22 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "          Artist  count\n0  Ariana Grande   1487\n1          Drake   1473\n2            BTS   1376\n3   Taylor Swift   1285\n4   XXXTENTACION    989\n5     Ed Sheeran    911\n6     The Weeknd    881\n7    Linkin Park    798\n8         Eminem    786\n9  Billie Eilish    777\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641303387741_309891178",
+      "id": "20220104-133627_1752024135",
+      "dateCreated": "Jan 4, 2022 1:36:27 PM",
+      "dateStarted": "Jan 4, 2022 2:44:22 PM",
+      "dateFinished": "Jan 4, 2022 2:44:27 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nfrom pyspark.sql.functions import isnan, when, count\nnullcolumns \u003d df.select([count(when(isnan(c), c)).alias(c) for c in df.columns]).toPandas()\nprint(nullcolumns)",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 2:44:34 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "   Country0  Uri  Popularity  Title  Artist  Album/Single  Genre  \\\n0         0    0           0      0       0             0      0   \n\n   Artist_followers  Explicit  Album9   ...     Sweden  Switzerland  Taiwan  \\\n0                 0         0       0   ...          0            0       0   \n\n   Turkey  UK  USA  Popu_max  Top10_dummy  Top50_dummy  Cluster  \n0       0   0    0         0            0            0        0  \n\n[1 rows x 151 columns]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641304367500_545932722",
+      "id": "20220104-135247_611512706",
+      "dateCreated": "Jan 4, 2022 1:52:47 PM",
+      "dateStarted": "Jan 4, 2022 2:44:34 PM",
+      "dateFinished": "Jan 4, 2022 2:44:48 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nsorted_df\u003ddf.sort(col(\"Popularity\").desc()).limit(10)\nsorted_df.toPandas().head(10)",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 2:44:55 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/text"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "    Country0                                                Uri  \\\n0     Mexico  https://open.spotify.com/track/7ee2FbCIkLtNyAX...   \n1   Malaysia  https://open.spotify.com/track/4QEMxvosInzpHUq...   \n2     Mexico  https://open.spotify.com/track/25C5CowdsfXld2j...   \n3      Italy  https://open.spotify.com/track/15RRpHBNzv0gvjI...   \n4  Singapore  https://open.spotify.com/track/27ycaQnQAxaPiye...   \n5     France  https://open.spotify.com/track/5PlemGdKGymY91E...   \n6    Ecuador  https://open.spotify.com/track/0L7loeTIg6akW84...   \n7     Poland  https://open.spotify.com/track/6QgjcU0zLnzq5Or...   \n8   Portugal  https://open.spotify.com/track/4aWmUDTfIPGksMN...   \n9      Italy  https://open.spotify.com/track/7GnoAoKulxKSSEu...   \n\n          Popularity                 Title                         Artist  \\\n0  9999.600000000002   tienes que entender            Alejandro Fernández   \n1  9999.399999999998              bidadari                  Ismail Izzani   \n2  9999.350000000004       sorry not sorry                    Demi Lovato   \n3             9999.3          22 settembre                         Ultimo   \n4  9999.049999999996          midnight sky                    Miley Cyrus   \n5             9999.0          toute lannée                    PLK - Timal   \n6  9998.799999999996  light it up  - remix  Major Lazer - Nyla - Fuse ODG   \n7  99976.35000000015         feel it still              Portugal. The Man   \n8  99972.50000000019             despacito      Luis Fonsi - Daddy Yankee   \n9  9997.949999999997             boulevard                          Ghali   \n\n  Album/Single              Genre Artist_followers Explicit  \\\n0        album              latin        3543693.0    False   \n1       single      malaysian pop         134093.0    False   \n2       single          dance pop       18346890.0     True   \n3       single  italian adult pop        2118012.0    False   \n4       single          dance pop         13062577    False   \n5        album     french hip hop         565680.0     True   \n6        album          dance pop        6092877.0    False   \n7        album         indie rock        1152895.0    False   \n8       single              latin        8932627.0    False   \n9        album    italian hip hop        2618082.0     True   \n\n                               Album9  \\\n0                 Rompiendo Fronteras   \n1                            Bidadari   \n2                     Sorry Not Sorry   \n3                        22 settembre   \n4                        Midnight Sky   \n5                              Mental   \n6      Peace Is The Mission: Extended   \n7                           Woodstock   \n8  Despacito (Featuring Daddy Yankee)   \n9                               Album   \n\n                    ...                    Sweden Switzerland Taiwan Turkey  \\\n0                   ...                         0           0      0      0   \n1                   ...                         0           0      0      0   \n2                   ...                         0           0      0      0   \n3                   ...                         0           0      0      0   \n4                   ...                         0           0      0      0   \n5                   ...                         0           0      0      0   \n6                   ...                         0           0      0      0   \n7                   ...                         0           0      0      0   \n8                   ...                         0           0      0      0   \n9                   ...                         0           0      0      0   \n\n  UK USA Popu_max Top10_dummy Top50_dummy  \\\n0  0   0       69         0.0         0.0   \n1  0   0       23         0.0         1.0   \n2  0   0       41         0.0         1.0   \n3  0   0        1         1.0         1.0   \n4  0   0       31         0.0         1.0   \n5  0   0        7         1.0         1.0   \n6  0   0       62         0.0         0.0   \n7  0   0        3         1.0         1.0   \n8  0   0        1         1.0         1.0   \n9  0   0       12         0.0         1.0   \n\n                                   Cluster  \n0                         spanish speaking  \n1              english speaking and nordic  \n2                         spanish speaking  \n3  southern europe and portuguese heritage  \n4              english speaking and nordic  \n5  southern europe and portuguese heritage  \n6                         spanish speaking  \n7              english speaking and nordic  \n8  southern europe and portuguese heritage  \n9  southern europe and portuguese heritage  \n\n[10 rows x 151 columns]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641304843518_-709257229",
+      "id": "20220104-140043_1986947461",
+      "dateCreated": "Jan 4, 2022 2:00:43 PM",
+      "dateStarted": "Jan 4, 2022 2:44:55 PM",
+      "dateFinished": "Jan 4, 2022 2:44:57 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\ndf.registerTempTable(\"df_table\")",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 2:58:50 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1641308114974_-716095697",
+      "id": "20220104-145514_66962628",
+      "dateCreated": "Jan 4, 2022 2:55:14 PM",
+      "dateStarted": "Jan 4, 2022 2:58:50 PM",
+      "dateFinished": "Jan 4, 2022 2:58:51 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nres \u003d spark.sql(\u0027SELECT Artist, ROUND(SUM(Popularity), 2) AS Populartiy \\\n                 FROM df_table \\\n                 WHERE USA \u003d\u003d 1 \\\n                 GROUP BY Artist \\\n                 ORDER BY AVG(Popularity) DESC \\\n                 LIMIT 10\u0027\n               )\nres.show(10, truncate\u003dFalse)",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 3:05:50 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+------------------------------+----------+\n|Artist                        |Populartiy|\n+------------------------------+----------+\n|Post Malone - Quavo           |130719.15 |\n|XXXTENTACION - Trippie Redd   |97016.35  |\n|Meek Mill - Drake             |83235.95  |\n|Post Malone - 21 Savage       |159633.25 |\n|Billie Eilish - Khalid        |79693.9   |\n|Marshmello - Bastille         |74560.5   |\n|Cardi B - Bad Bunny - J Balvin|74381.6   |\n|Migos - Lil Uzi Vert          |70138.2   |\n|BlocBoy JB - Drake            |69576.75  |\n|Kendrick Lamar - Zacari       |67838.15  |\n+------------------------------+----------+\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641308114429_-1788390882",
+      "id": "20220104-145514_379298631",
+      "dateCreated": "Jan 4, 2022 2:55:14 PM",
+      "dateStarted": "Jan 4, 2022 3:05:50 PM",
+      "dateFinished": "Jan 4, 2022 3:05:51 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\ndf.select(\u0027Genre_new\u0027).distinct().collect()",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 3:07:18 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "[Row(Genre_new\u003d\u0027boy band\u0027), Row(Genre_new\u003d\u00273\u0027), Row(Genre_new\u003d\u0027pop\u0027), Row(Genre_new\u003d\u0027else\u0027), Row(Genre_new\u003d\u0027opm\u0027), Row(Genre_new\u003d\u0027k-pop\u0027), Row(Genre_new\u003d\u0027dance/electronic\u0027), Row(Genre_new\u003d\u0027trap\u0027), Row(Genre_new\u003d\u0027reggaeton\u0027), Row(Genre_new\u003d\u0027rap\u0027), Row(Genre_new\u003d\u0027jazz\u0027), Row(Genre_new\u003d\u0027hip hop\u0027), Row(Genre_new\u003d\u0027country\u0027), Row(Genre_new\u003d\u0027bolero\u0027), Row(Genre_new\u003d\u0027metal\u0027), Row(Genre_new\u003d\u0027r\u0026b/soul\u0027), Row(Genre_new\u003d\u0027indie\u0027), Row(Genre_new\u003d\u0027house\u0027), Row(Genre_new\u003d\u0027funk\u0027), Row(Genre_new\u003d\u00274\u0027), Row(Genre_new\u003d\u0027rock\u0027), Row(Genre_new\u003d\u0027reggae\u0027), Row(Genre_new\u003d\u0027latin\u0027)]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641308804879_-1182075353",
+      "id": "20220104-150644_1731430650",
+      "dateCreated": "Jan 4, 2022 3:06:44 PM",
+      "dateStarted": "Jan 4, 2022 3:07:18 PM",
+      "dateFinished": "Jan 4, 2022 3:07:19 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nres \u003d spark.sql(\u0027\u0027\u0027SELECT Title, Artist,ROUND(AVG(Loudness), 2) AS Loudness, \\\n                                        ROUND(AVG(Danceability), 2) AS Danceability, \\\n                                        ROUND(AVG(Energy), 2) AS Energy, \\\n                                        ROUND(AVG(Energy), 2) AS Energy, \\\n                                        ROUND(AVG(Tempo), 2) AS Tempo \\\n                 FROM df_table \\\n                 WHERE Genre_new \u003d\u003d \u0027pop\u0027 \\\n                 GROUP BY Title, Artist ,Loudness, Danceability, Energy, Acoustics, Tempo \\\n                 ORDER BY AVG(Artist_followers) DESC \\\n                 LIMIT 10\u0027\u0027\u0027\n               )\nres.show(10, truncate\u003dFalse)",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 3:26:52 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+---------------------------------+-----------------------------------------+--------+------------+------+------+------+\n|Title                            |Artist                                   |Loudness|Danceability|Energy|Energy|Tempo |\n+---------------------------------+-----------------------------------------+--------+------------+------+------+------+\n|cross me                         |Ed Sheeran - Chance the Rapper - PnB Rock|-6.37   |0.75        |0.79  |0.79  |95.01 |\n|perfect symphony                 |Ed Sheeran - Andrea Bocelli              |-4.39   |0.54        |0.42  |0.42  |95.16 |\n|english rose                     |Ed Sheeran                               |-6.52   |0.58        |0.65  |0.65  |114.59|\n|dive                             |Ed Sheeran                               |-6.16   |0.76        |0.39  |0.39  |134.94|\n|galway girl - martin jensen remix|Ed Sheeran - Martin Jensen               |-4.58   |0.73        |0.75  |0.75  |100.05|\n|wake me up                       |Ed Sheeran                               |-13.43  |0.62        |0.21  |0.21  |86.89 |\n|remember the name                |Ed Sheeran - Eminem - 50 Cent            |-6.92   |0.85        |0.67  |0.67  |91.05 |\n|way to break my heart            |Ed Sheeran - Skrillex                    |-6.3    |0.73        |0.73  |0.73  |170.13|\n|i see fire                       |Ed Sheeran                               |-20.51  |0.58        |0.05  |0.05  |152.04|\n|castle on the hill - seeb remix  |Ed Sheeran - Seeb                        |-4.47   |0.37        |0.78  |0.78  |165.92|\n+---------------------------------+-----------------------------------------+--------+------------+------+------+------+\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641308113703_-1618331868",
+      "id": "20220104-145513_1806344315",
+      "dateCreated": "Jan 4, 2022 2:55:13 PM",
+      "dateStarted": "Jan 4, 2022 3:26:52 PM",
+      "dateFinished": "Jan 4, 2022 3:26:54 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nres \u003d spark.sql(\u0027\u0027\u0027SELECT Artist, Title, ROUND(AVG(Loudness), 2) AS Loudness, Danceability, Energy, Liveliness, Instrumentalness, Tempo, Duration_ms \\\n                 FROM df_table \\\n                 WHERE Genre_new \u003d\u003d \u0027rock\u0027 \\\n                 GROUP BY Title, Artist,Loudness, Danceability, Energy, Liveliness, Instrumentalness, Tempo, Duration_ms \\\n                 ORDER BY AVG(Popularity) DESC \\\n                 LIMIT 10\u0027\u0027\u0027\n               )\nres.show(10, truncate\u003dFalse)",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 3:17:48 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+---------------------+------------------+--------+------------------+------------------+----------+----------------+------------------+-----------+\n|Artist               |Title             |Loudness|Danceability      |Energy            |Liveliness|Instrumentalness|Tempo             |Duration_ms|\n+---------------------+------------------+--------+------------------+------------------+----------+----------------+------------------+-----------+\n|Sheila On 7          |dan...            |-12.05  |0.6579999999999999|0.539             |0.106     |0.0106          |125.041           |288707     |\n|Yüzyüzeyken Konuşuruz|ne farkeder       |-9.06   |0.5670000000000001|0.626             |0.108     |0.966           |90.027            |192542     |\n|Yüzyüzeyken Konuşuruz|dinle beni bi     |-9.3    |0.557             |0.6829999999999999|0.107     |0.897           |91.965            |144907     |\n|Intoxicados          |nunca quise       |-6.3    |0.7090000000000001|0.787             |0.149     |0.0             |118.001           |260371     |\n|Yüzyüzeyken Konuşuruz|boş gemiler       |-9.17   |0.484             |0.6890000000000001|0.103     |0.285           |81.891            |229600     |\n|Divididos            |spaghetti del rock|-11.61  |0.626             |0.389             |0.117     |1.12e-05        |97.708            |212880     |\n|Adamlar              |zombi             |-8.8    |0.355             |0.682             |0.123     |0.129           |170.636           |234597     |\n|Yüzyüzeyken Konuşuruz|ölsem yeridir     |-6.5    |0.605             |0.519             |0.0711    |0.0947          |139.99            |232133     |\n|Callejeros           |creo              |-2.9    |0.382             |0.912             |0.233     |7.88e-06        |187.94099999999997|289760     |\n|Apulanta             |lokin päällä lokki|-7.0    |0.698             |0.826             |0.209     |1.02e-06        |113.974           |265333     |\n+---------------------+------------------+--------+------------------+------------------+----------+----------------+------------------+-----------+\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641309375127_-17981712",
+      "id": "20220104-151615_1879715476",
+      "dateCreated": "Jan 4, 2022 3:16:15 PM",
+      "dateStarted": "Jan 4, 2022 3:17:48 PM",
+      "dateFinished": "Jan 4, 2022 3:17:51 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nres \u003d spark.sql(\u0027SELECT \\\n                     ROUND(Year(Release_date), -1) AS Decade, \\\n                     Round(Popularity, 2) AS Popularity, Title, Artist \\\n                 FROM df_table \\\n                 INNER JOIN (SELECT Max(Popularity) as mp \\\n                                FROM df_table \\\n                             WHERE ROUND(Year(Release_date), -1) IS NOT NULL \\\n                                 AND USA \u003d\u003d 1 \\\n                             GROUP BY ROUND(Year(Release_date), -1) \\\n                             ) AS temp \\\n                 ON temp.mp \u003d df_table.Popularity \\\n                 ORDER BY Decade ASC, Popularity ASC \\\n                \u0027)\nres.toPandas().drop_duplicates(subset\u003d\u0027Decade\u0027, keep\u003d\"last\")",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 3:30:52 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "     Decade  Popularity                                   Title  \\\n0      1940      840.50  have yourself a merry little christmas   \n1      1950      997.60                         mele kalikimaka   \n7      1960       98.40   mistletoe and holly - remastered 1999   \n11     1970       98.40                         higher \u0026 higher   \n22     1980       98.60                     listen to her heart   \n33     1990       98.60     say it loud - im black and im proud   \n46     2000     9476.05                           feliz navidad   \n100    2010       98.60       seek bromance - avicii vocal edit   \n501    2020    99912.30                           drip too hard   \n\n                                Artist  \n0                         Judy Garland  \n1    Bing Crosby - The Andrews Sisters  \n7                        Frank Sinatra  \n11                       Jackie Wilson  \n22     Tom Petty and the Heartbreakers  \n33                         James Brown  \n46                      José Feliciano  \n100                  Tim Berg - Avicii  \n501                   Lil Baby - Gunna  \n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641310051390_2040419446",
+      "id": "20220104-152731_76367820",
+      "dateCreated": "Jan 4, 2022 3:27:31 PM",
+      "dateStarted": "Jan 4, 2022 3:30:52 PM",
+      "dateFinished": "Jan 4, 2022 3:31:05 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nspark.sql(\u0027SELECT \\\n              Genre, COUNT(*) AS Tally \\\n          FROM df_table \\\n          GROUP BY Genre \\\n          ORDER BY Tally DESC \\\n          \u0027).show(5)",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 3:49:39 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+---------+-----+\n|    Genre|Tally|\n+---------+-----+\n|dance pop|25351|\n|    latin| 7591|\n|      pop| 7146|\n|    k-pop| 4053|\n|      n-a| 3952|\n+---------+-----+\nonly showing top 5 rows\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641310269479_-1852948264",
+      "id": "20220104-153109_115328297",
+      "dateCreated": "Jan 4, 2022 3:31:09 PM",
+      "dateStarted": "Jan 4, 2022 3:49:39 PM",
+      "dateFinished": "Jan 4, 2022 3:49:41 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nres \u003d spark.sql(\u0027SELECT  \\\n                    ROUND(Year(Release_date), -1) AS Decade, \\\n                    Genre, COUNT(Genre) AS counts \\\n                FROM df_table \\\n                WHERE ROUND(Year(Release_date), -1) IS NOT NULL \\\n                GROUP BY Decade, Genre \\\n                ORDER BY COUNT(Genre) DESC \\\n                \u0027) \\\n            .dropDuplicates(subset\u003d[\u0027Decade\u0027]) \\\n            .orderBy(\u0027Decade\u0027) \\\n            .show()\n# res.toPandas().drop_duplicates(subset\u003d\u0027Decade\u0027, keep\u003d\"first\")",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 3:55:52 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+------+-------------------+------+\n|Decade|              Genre|counts|\n+------+-------------------+------+\n|  1900|vocal harmony group|     1|\n|  1930|        movie tunes|     1|\n|  1940|    adult standards|    41|\n|  1950|    adult standards|   100|\n|  1960| brill building pop|    44|\n|  1970|    adult standards|   211|\n|  1980|                pop|    75|\n|  1990|          dance pop|   156|\n|  2000|  alternative metal|   539|\n|  2010|          dance pop|  1202|\n|  2020|           big room|  2686|\n+------+-------------------+------+\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641311748539_263455792",
+      "id": "20220104-155548_1737540208",
+      "dateCreated": "Jan 4, 2022 3:55:48 PM",
+      "dateStarted": "Jan 4, 2022 3:55:52 PM",
+      "dateFinished": "Jan 4, 2022 3:55:57 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 4:39:18 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1641314044058_-554845467",
+      "id": "20220104-163404_320248466",
+      "dateCreated": "Jan 4, 2022 4:34:04 PM",
+      "dateStarted": "Jan 4, 2022 4:34:36 PM",
+      "dateFinished": "Jan 4, 2022 4:34:36 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\ndf.write.format(\n    \u0027org.elasticsearch.spark.sql\u0027\n).option(\n    \u0027es.nodes\u0027, \u0027http://172.18.0.12\u0027\n).option(\n    \u0027es.port\u0027, 9200\n).option(\n    \u0027es.resource\u0027, \u0027/spotify/test5\u0027\n).save()",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 4:39:19 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Traceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-315151304970787568.py\", line 360, in \u003cmodule\u003e\n    exec(code, _zcUserQueryNameSpace)\n  File \"\u003cstdin\u003e\", line 9, in \u003cmodule\u003e\n  File \"/usr/spark-2.2.0/python/pyspark/sql/readwriter.py\", line 593, in save\n    self._jwrite.save()\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/java_gateway.py\", line 1160, in __call__\n    answer, self.gateway_client, self.target_id, self.name)\n  File \"/usr/spark-2.2.0/python/pyspark/sql/utils.py\", line 63, in deco\n    return f(*a, **kw)\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/protocol.py\", line 320, in get_return_value\n    format(target_id, \".\", name), value)\npy4j.protocol.Py4JJavaError: An error occurred while calling o373.save.\n: org.apache.spark.SparkException: Job aborted due to stage failure: Task 1 in stage 7.0 failed 4 times, most recent failure: Lost task 1.3 in stage 7.0 (TID 28, 172.18.0.3, executor 0): org.elasticsearch.hadoop.EsHadoopException: Could not write all entries for bulk operation [1000/1000]. Error sample (first [5] error messages):\n\torg.elasticsearch.hadoop.rest.EsHadoopRemoteException: illegal_argument_exception: Rejecting mapping update to [spotify] as the final mapping would have more than 1 type: [test5, test1]\n\t{\"index\":{}}\n{\"genre\":\"Classical\",\"artist_name\":\"Jacques Offenbach\",\"track_name\":\"\\\"Boule de neige, Acte I Scène 2: Couplet de la dompteuse \\\"\\\"Je suis du pays vermeil\\\"\\\"\\\"\",\"track_id\":\"2fZnr5q9CJdxGfZjMp9q1e\",\"popularity\":\"35\",\"acousticness\":\"0.899\",\"danceability\":\"0.549\",\"duration_ms\":\"123120\",\"energy\":\"0.216\",\"instrumentalness\":\"1.78e-06\",\"key\":\"G\",\"liveness\":\"0.0419\",\"loudness\":\"-15.955\",\"mode\":\"Major\",\"speechiness\":\"0.0596\",\"tempo\":\"114.826\",\"time_signature\":\"4/4\",\"valence\":\"0.656\"}\n\n\torg.elasticsearch.hadoop.rest.EsHadoopRemoteException: illegal_argument_exception: Rejecting mapping update to [spotify] as the final mapping would have more than 1 type: [test5, test1]\n\t{\"index\":{}}\n{\"genre\":\"Classical\",\"artist_name\":\"Giuseppe Verdi\",\"track_name\":\"Nabucco: Chorus of the Hebrew Slaves (Va\u0027, pensiero, sull\u0027ali dorate)\",\"track_id\":\"6qNQdSuHkg9KkhNED70d15\",\"popularity\":\"38\",\"acousticness\":\"0.989\",\"danceability\":\"0.224\",\"duration_ms\":\"299253\",\"energy\":\"0.0945\",\"instrumentalness\":\"0.764\",\"key\":\"C#\",\"liveness\":\"0.102\",\"loudness\":\"-16.475\",\"mode\":\"Major\",\"speechiness\":\"0.0426\",\"tempo\":\"124.206\",\"time_signature\":\"3/4\",\"valence\":\"0.0574\"}\n\n\torg.elasticsearch.hadoop.rest.EsHadoopRemoteException: illegal_argument_exception: Rejecting mapping update to [spotify] as the final mapping would have more than 1 type: [test5, test1]\n\t{\"index\":{}}\n{\"genre\":\"Classical\",\"artist_name\":\"Johann Sebastian Bach\",\"track_name\":\"Bach, JS: Was mir behagt, ist nur die muntre Jagd, BWV 208\",\"track_id\":\"3l6N2ekLMeS8sCkrPDX3o0\",\"popularity\":\"32\",\"acousticness\":\"0.959\",\"danceability\":\"0.204\",\"duration_ms\":\"279360\",\"energy\":\"0.0816\",\"instrumentalness\":\"0.943\",\"key\":\"A#\",\"liveness\":\"0.123\",\"loudness\":\"-22.315\",\"mode\":\"Major\",\"speechiness\":\"0.0442\",\"tempo\":\"109.15\",\"time_signature\":\"4/4\",\"valence\":\"0.177\"}\n\n\torg.elasticsearch.hadoop.rest.EsHadoopRemoteException: illegal_argument_exception: Rejecting mapping update to [spotify] as the final mapping would have more than 1 type: [test5, test1]\n\t{\"index\":{}}\n{\"genre\":\"Classical\",\"artist_name\":\"Pyotr Ilyich Tchaikovsky\",\"track_name\":\"Romeo \u0026 Juliet Fantasy Overture, TH.42\",\"track_id\":\"5kcWEkBrVgPikRGl6raqiq\",\"popularity\":\"32\",\"acousticness\":\"0.942\",\"danceability\":\"0.12\",\"duration_ms\":\"1157675\",\"energy\":\"0.0709\",\"instrumentalness\":\"0.879\",\"key\":\"B\",\"liveness\":\"0.0552\",\"loudness\":\"-19.657\",\"mode\":\"Minor\",\"speechiness\":\"0.0414\",\"tempo\":\"80.796\",\"time_signature\":\"4/4\",\"valence\":\"0.0362\"}\n\n\torg.elasticsearch.hadoop.rest.EsHadoopRemoteException: illegal_argument_exception: Rejecting mapping update to [spotify] as the final mapping would have more than 1 type: [test5, test1]\n\t{\"index\":{}}\n{\"genre\":\"Classical\",\"artist_name\":\"Johann Sebastian Bach\",\"track_name\":\"Brandenburg Concerto No.3 In G Major, BWV 1048: 1. (Allegro)\",\"track_id\":\"5mY6Q6Idki044f0BSrhTt2\",\"popularity\":\"27\",\"acousticness\":\"0.861\",\"danceability\":\"0.602\",\"duration_ms\":\"345040\",\"energy\":\"0.313\",\"instrumentalness\":\"0.0205\",\"key\":\"F#\",\"liveness\":\"0.204\",\"loudness\":\"-17.395\",\"mode\":\"Major\",\"speechiness\":\"0.0497\",\"tempo\":\"95.635\",\"time_signature\":\"4/4\",\"valence\":\"0.826\"}\n\nBailing out...\n\tat org.elasticsearch.hadoop.rest.bulk.BulkProcessor.flush(BulkProcessor.java:519)\n\tat org.elasticsearch.hadoop.rest.bulk.BulkProcessor.add(BulkProcessor.java:127)\n\tat org.elasticsearch.hadoop.rest.RestRepository.doWriteToIndex(RestRepository.java:192)\n\tat org.elasticsearch.hadoop.rest.RestRepository.writeToIndex(RestRepository.java:172)\n\tat org.elasticsearch.spark.rdd.EsRDDWriter.write(EsRDDWriter.scala:74)\n\tat org.elasticsearch.spark.sql.EsSparkSQL$$anonfun$saveToEs$1.apply(EsSparkSQL.scala:101)\n\tat org.elasticsearch.spark.sql.EsSparkSQL$$anonfun$saveToEs$1.apply(EsSparkSQL.scala:101)\n\tat org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:87)\n\tat org.apache.spark.scheduler.Task.run(Task.scala:108)\n\tat org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:335)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\n\tat java.lang.Thread.run(Thread.java:748)\n\nDriver stacktrace:\n\tat org.apache.spark.scheduler.DAGScheduler.org$apache$spark$scheduler$DAGScheduler$$failJobAndIndependentStages(DAGScheduler.scala:1499)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$abortStage$1.apply(DAGScheduler.scala:1487)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$abortStage$1.apply(DAGScheduler.scala:1486)\n\tat scala.collection.mutable.ResizableArray$class.foreach(ResizableArray.scala:59)\n\tat scala.collection.mutable.ArrayBuffer.foreach(ArrayBuffer.scala:48)\n\tat org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:1486)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$handleTaskSetFailed$1.apply(DAGScheduler.scala:814)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$handleTaskSetFailed$1.apply(DAGScheduler.scala:814)\n\tat scala.Option.foreach(Option.scala:257)\n\tat org.apache.spark.scheduler.DAGScheduler.handleTaskSetFailed(DAGScheduler.scala:814)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:1714)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:1669)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:1658)\n\tat org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:48)\n\tat org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:630)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2022)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2043)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2075)\n\tat org.elasticsearch.spark.sql.EsSparkSQL$.saveToEs(EsSparkSQL.scala:101)\n\tat org.elasticsearch.spark.sql.ElasticsearchRelation.insert(DefaultSource.scala:620)\n\tat org.elasticsearch.spark.sql.DefaultSource.createRelation(DefaultSource.scala:110)\n\tat org.apache.spark.sql.execution.datasources.DataSource.write(DataSource.scala:472)\n\tat org.apache.spark.sql.execution.datasources.SaveIntoDataSourceCommand.run(SaveIntoDataSourceCommand.scala:48)\n\tat org.apache.spark.sql.execution.command.ExecutedCommandExec.sideEffectResult$lzycompute(commands.scala:58)\n\tat org.apache.spark.sql.execution.command.ExecutedCommandExec.sideEffectResult(commands.scala:56)\n\tat org.apache.spark.sql.execution.command.ExecutedCommandExec.doExecute(commands.scala:74)\n\tat org.apache.spark.sql.execution.SparkPlan$$anonfun$execute$1.apply(SparkPlan.scala:117)\n\tat org.apache.spark.sql.execution.SparkPlan$$anonfun$execute$1.apply(SparkPlan.scala:117)\n\tat org.apache.spark.sql.execution.SparkPlan$$anonfun$executeQuery$1.apply(SparkPlan.scala:138)\n\tat org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)\n\tat org.apache.spark.sql.execution.SparkPlan.executeQuery(SparkPlan.scala:135)\n\tat org.apache.spark.sql.execution.SparkPlan.execute(SparkPlan.scala:116)\n\tat org.apache.spark.sql.execution.QueryExecution.toRdd$lzycompute(QueryExecution.scala:92)\n\tat org.apache.spark.sql.execution.QueryExecution.toRdd(QueryExecution.scala:92)\n\tat org.apache.spark.sql.DataFrameWriter.runCommand(DataFrameWriter.scala:610)\n\tat org.apache.spark.sql.DataFrameWriter.save(DataFrameWriter.scala:233)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)\n\tat py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:357)\n\tat py4j.Gateway.invoke(Gateway.java:280)\n\tat py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)\n\tat py4j.commands.CallCommand.execute(CallCommand.java:79)\n\tat py4j.GatewayConnection.run(GatewayConnection.java:214)\n\tat java.lang.Thread.run(Thread.java:748)\nCaused by: org.elasticsearch.hadoop.EsHadoopException: Could not write all entries for bulk operation [1000/1000]. Error sample (first [5] error messages):\n\torg.elasticsearch.hadoop.rest.EsHadoopRemoteException: illegal_argument_exception: Rejecting mapping update to [spotify] as the final mapping would have more than 1 type: [test5, test1]\n\t{\"index\":{}}\n{\"genre\":\"Classical\",\"artist_name\":\"Jacques Offenbach\",\"track_name\":\"\\\"Boule de neige, Acte I Scène 2: Couplet de la dompteuse \\\"\\\"Je suis du pays vermeil\\\"\\\"\\\"\",\"track_id\":\"2fZnr5q9CJdxGfZjMp9q1e\",\"popularity\":\"35\",\"acousticness\":\"0.899\",\"danceability\":\"0.549\",\"duration_ms\":\"123120\",\"energy\":\"0.216\",\"instrumentalness\":\"1.78e-06\",\"key\":\"G\",\"liveness\":\"0.0419\",\"loudness\":\"-15.955\",\"mode\":\"Major\",\"speechiness\":\"0.0596\",\"tempo\":\"114.826\",\"time_signature\":\"4/4\",\"valence\":\"0.656\"}\n\n\torg.elasticsearch.hadoop.rest.EsHadoopRemoteException: illegal_argument_exception: Rejecting mapping update to [spotify] as the final mapping would have more than 1 type: [test5, test1]\n\t{\"index\":{}}\n{\"genre\":\"Classical\",\"artist_name\":\"Giuseppe Verdi\",\"track_name\":\"Nabucco: Chorus of the Hebrew Slaves (Va\u0027, pensiero, sull\u0027ali dorate)\",\"track_id\":\"6qNQdSuHkg9KkhNED70d15\",\"popularity\":\"38\",\"acousticness\":\"0.989\",\"danceability\":\"0.224\",\"duration_ms\":\"299253\",\"energy\":\"0.0945\",\"instrumentalness\":\"0.764\",\"key\":\"C#\",\"liveness\":\"0.102\",\"loudness\":\"-16.475\",\"mode\":\"Major\",\"speechiness\":\"0.0426\",\"tempo\":\"124.206\",\"time_signature\":\"3/4\",\"valence\":\"0.0574\"}\n\n\torg.elasticsearch.hadoop.rest.EsHadoopRemoteException: illegal_argument_exception: Rejecting mapping update to [spotify] as the final mapping would have more than 1 type: [test5, test1]\n\t{\"index\":{}}\n{\"genre\":\"Classical\",\"artist_name\":\"Johann Sebastian Bach\",\"track_name\":\"Bach, JS: Was mir behagt, ist nur die muntre Jagd, BWV 208\",\"track_id\":\"3l6N2ekLMeS8sCkrPDX3o0\",\"popularity\":\"32\",\"acousticness\":\"0.959\",\"danceability\":\"0.204\",\"duration_ms\":\"279360\",\"energy\":\"0.0816\",\"instrumentalness\":\"0.943\",\"key\":\"A#\",\"liveness\":\"0.123\",\"loudness\":\"-22.315\",\"mode\":\"Major\",\"speechiness\":\"0.0442\",\"tempo\":\"109.15\",\"time_signature\":\"4/4\",\"valence\":\"0.177\"}\n\n\torg.elasticsearch.hadoop.rest.EsHadoopRemoteException: illegal_argument_exception: Rejecting mapping update to [spotify] as the final mapping would have more than 1 type: [test5, test1]\n\t{\"index\":{}}\n{\"genre\":\"Classical\",\"artist_name\":\"Pyotr Ilyich Tchaikovsky\",\"track_name\":\"Romeo \u0026 Juliet Fantasy Overture, TH.42\",\"track_id\":\"5kcWEkBrVgPikRGl6raqiq\",\"popularity\":\"32\",\"acousticness\":\"0.942\",\"danceability\":\"0.12\",\"duration_ms\":\"1157675\",\"energy\":\"0.0709\",\"instrumentalness\":\"0.879\",\"key\":\"B\",\"liveness\":\"0.0552\",\"loudness\":\"-19.657\",\"mode\":\"Minor\",\"speechiness\":\"0.0414\",\"tempo\":\"80.796\",\"time_signature\":\"4/4\",\"valence\":\"0.0362\"}\n\n\torg.elasticsearch.hadoop.rest.EsHadoopRemoteException: illegal_argument_exception: Rejecting mapping update to [spotify] as the final mapping would have more than 1 type: [test5, test1]\n\t{\"index\":{}}\n{\"genre\":\"Classical\",\"artist_name\":\"Johann Sebastian Bach\",\"track_name\":\"Brandenburg Concerto No.3 In G Major, BWV 1048: 1. (Allegro)\",\"track_id\":\"5mY6Q6Idki044f0BSrhTt2\",\"popularity\":\"27\",\"acousticness\":\"0.861\",\"danceability\":\"0.602\",\"duration_ms\":\"345040\",\"energy\":\"0.313\",\"instrumentalness\":\"0.0205\",\"key\":\"F#\",\"liveness\":\"0.204\",\"loudness\":\"-17.395\",\"mode\":\"Major\",\"speechiness\":\"0.0497\",\"tempo\":\"95.635\",\"time_signature\":\"4/4\",\"valence\":\"0.826\"}\n\nBailing out...\n\tat org.elasticsearch.hadoop.rest.bulk.BulkProcessor.flush(BulkProcessor.java:519)\n\tat org.elasticsearch.hadoop.rest.bulk.BulkProcessor.add(BulkProcessor.java:127)\n\tat org.elasticsearch.hadoop.rest.RestRepository.doWriteToIndex(RestRepository.java:192)\n\tat org.elasticsearch.hadoop.rest.RestRepository.writeToIndex(RestRepository.java:172)\n\tat org.elasticsearch.spark.rdd.EsRDDWriter.write(EsRDDWriter.scala:74)\n\tat org.elasticsearch.spark.sql.EsSparkSQL$$anonfun$saveToEs$1.apply(EsSparkSQL.scala:101)\n\tat org.elasticsearch.spark.sql.EsSparkSQL$$anonfun$saveToEs$1.apply(EsSparkSQL.scala:101)\n\tat org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:87)\n\tat org.apache.spark.scheduler.Task.run(Task.scala:108)\n\tat org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:335)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\n\t... 1 more\n\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-315151304970787568.py\", line 367, in \u003cmodule\u003e\n    raise Exception(traceback.format_exc())\nException: Traceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-315151304970787568.py\", line 360, in \u003cmodule\u003e\n    exec(code, _zcUserQueryNameSpace)\n  File \"\u003cstdin\u003e\", line 9, in \u003cmodule\u003e\n  File \"/usr/spark-2.2.0/python/pyspark/sql/readwriter.py\", line 593, in save\n    self._jwrite.save()\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/java_gateway.py\", line 1160, in __call__\n    answer, self.gateway_client, self.target_id, self.name)\n  File \"/usr/spark-2.2.0/python/pyspark/sql/utils.py\", line 63, in deco\n    return f(*a, **kw)\n  File \"/usr/local/lib/python3.4/dist-packages/py4j-0.10.6-py3.4.egg/py4j/protocol.py\", line 320, in get_return_value\n    format(target_id, \".\", name), value)\npy4j.protocol.Py4JJavaError: An error occurred while calling o373.save.\n: org.apache.spark.SparkException: Job aborted due to stage failure: Task 1 in stage 7.0 failed 4 times, most recent failure: Lost task 1.3 in stage 7.0 (TID 28, 172.18.0.3, executor 0): org.elasticsearch.hadoop.EsHadoopException: Could not write all entries for bulk operation [1000/1000]. Error sample (first [5] error messages):\n\torg.elasticsearch.hadoop.rest.EsHadoopRemoteException: illegal_argument_exception: Rejecting mapping update to [spotify] as the final mapping would have more than 1 type: [test5, test1]\n\t{\"index\":{}}\n{\"genre\":\"Classical\",\"artist_name\":\"Jacques Offenbach\",\"track_name\":\"\\\"Boule de neige, Acte I Scène 2: Couplet de la dompteuse \\\"\\\"Je suis du pays vermeil\\\"\\\"\\\"\",\"track_id\":\"2fZnr5q9CJdxGfZjMp9q1e\",\"popularity\":\"35\",\"acousticness\":\"0.899\",\"danceability\":\"0.549\",\"duration_ms\":\"123120\",\"energy\":\"0.216\",\"instrumentalness\":\"1.78e-06\",\"key\":\"G\",\"liveness\":\"0.0419\",\"loudness\":\"-15.955\",\"mode\":\"Major\",\"speechiness\":\"0.0596\",\"tempo\":\"114.826\",\"time_signature\":\"4/4\",\"valence\":\"0.656\"}\n\n\torg.elasticsearch.hadoop.rest.EsHadoopRemoteException: illegal_argument_exception: Rejecting mapping update to [spotify] as the final mapping would have more than 1 type: [test5, test1]\n\t{\"index\":{}}\n{\"genre\":\"Classical\",\"artist_name\":\"Giuseppe Verdi\",\"track_name\":\"Nabucco: Chorus of the Hebrew Slaves (Va\u0027, pensiero, sull\u0027ali dorate)\",\"track_id\":\"6qNQdSuHkg9KkhNED70d15\",\"popularity\":\"38\",\"acousticness\":\"0.989\",\"danceability\":\"0.224\",\"duration_ms\":\"299253\",\"energy\":\"0.0945\",\"instrumentalness\":\"0.764\",\"key\":\"C#\",\"liveness\":\"0.102\",\"loudness\":\"-16.475\",\"mode\":\"Major\",\"speechiness\":\"0.0426\",\"tempo\":\"124.206\",\"time_signature\":\"3/4\",\"valence\":\"0.0574\"}\n\n\torg.elasticsearch.hadoop.rest.EsHadoopRemoteException: illegal_argument_exception: Rejecting mapping update to [spotify] as the final mapping would have more than 1 type: [test5, test1]\n\t{\"index\":{}}\n{\"genre\":\"Classical\",\"artist_name\":\"Johann Sebastian Bach\",\"track_name\":\"Bach, JS: Was mir behagt, ist nur die muntre Jagd, BWV 208\",\"track_id\":\"3l6N2ekLMeS8sCkrPDX3o0\",\"popularity\":\"32\",\"acousticness\":\"0.959\",\"danceability\":\"0.204\",\"duration_ms\":\"279360\",\"energy\":\"0.0816\",\"instrumentalness\":\"0.943\",\"key\":\"A#\",\"liveness\":\"0.123\",\"loudness\":\"-22.315\",\"mode\":\"Major\",\"speechiness\":\"0.0442\",\"tempo\":\"109.15\",\"time_signature\":\"4/4\",\"valence\":\"0.177\"}\n\n\torg.elasticsearch.hadoop.rest.EsHadoopRemoteException: illegal_argument_exception: Rejecting mapping update to [spotify] as the final mapping would have more than 1 type: [test5, test1]\n\t{\"index\":{}}\n{\"genre\":\"Classical\",\"artist_name\":\"Pyotr Ilyich Tchaikovsky\",\"track_name\":\"Romeo \u0026 Juliet Fantasy Overture, TH.42\",\"track_id\":\"5kcWEkBrVgPikRGl6raqiq\",\"popularity\":\"32\",\"acousticness\":\"0.942\",\"danceability\":\"0.12\",\"duration_ms\":\"1157675\",\"energy\":\"0.0709\",\"instrumentalness\":\"0.879\",\"key\":\"B\",\"liveness\":\"0.0552\",\"loudness\":\"-19.657\",\"mode\":\"Minor\",\"speechiness\":\"0.0414\",\"tempo\":\"80.796\",\"time_signature\":\"4/4\",\"valence\":\"0.0362\"}\n\n\torg.elasticsearch.hadoop.rest.EsHadoopRemoteException: illegal_argument_exception: Rejecting mapping update to [spotify] as the final mapping would have more than 1 type: [test5, test1]\n\t{\"index\":{}}\n{\"genre\":\"Classical\",\"artist_name\":\"Johann Sebastian Bach\",\"track_name\":\"Brandenburg Concerto No.3 In G Major, BWV 1048: 1. (Allegro)\",\"track_id\":\"5mY6Q6Idki044f0BSrhTt2\",\"popularity\":\"27\",\"acousticness\":\"0.861\",\"danceability\":\"0.602\",\"duration_ms\":\"345040\",\"energy\":\"0.313\",\"instrumentalness\":\"0.0205\",\"key\":\"F#\",\"liveness\":\"0.204\",\"loudness\":\"-17.395\",\"mode\":\"Major\",\"speechiness\":\"0.0497\",\"tempo\":\"95.635\",\"time_signature\":\"4/4\",\"valence\":\"0.826\"}\n\nBailing out...\n\tat org.elasticsearch.hadoop.rest.bulk.BulkProcessor.flush(BulkProcessor.java:519)\n\tat org.elasticsearch.hadoop.rest.bulk.BulkProcessor.add(BulkProcessor.java:127)\n\tat org.elasticsearch.hadoop.rest.RestRepository.doWriteToIndex(RestRepository.java:192)\n\tat org.elasticsearch.hadoop.rest.RestRepository.writeToIndex(RestRepository.java:172)\n\tat org.elasticsearch.spark.rdd.EsRDDWriter.write(EsRDDWriter.scala:74)\n\tat org.elasticsearch.spark.sql.EsSparkSQL$$anonfun$saveToEs$1.apply(EsSparkSQL.scala:101)\n\tat org.elasticsearch.spark.sql.EsSparkSQL$$anonfun$saveToEs$1.apply(EsSparkSQL.scala:101)\n\tat org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:87)\n\tat org.apache.spark.scheduler.Task.run(Task.scala:108)\n\tat org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:335)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\n\tat java.lang.Thread.run(Thread.java:748)\n\nDriver stacktrace:\n\tat org.apache.spark.scheduler.DAGScheduler.org$apache$spark$scheduler$DAGScheduler$$failJobAndIndependentStages(DAGScheduler.scala:1499)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$abortStage$1.apply(DAGScheduler.scala:1487)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$abortStage$1.apply(DAGScheduler.scala:1486)\n\tat scala.collection.mutable.ResizableArray$class.foreach(ResizableArray.scala:59)\n\tat scala.collection.mutable.ArrayBuffer.foreach(ArrayBuffer.scala:48)\n\tat org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:1486)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$handleTaskSetFailed$1.apply(DAGScheduler.scala:814)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$handleTaskSetFailed$1.apply(DAGScheduler.scala:814)\n\tat scala.Option.foreach(Option.scala:257)\n\tat org.apache.spark.scheduler.DAGScheduler.handleTaskSetFailed(DAGScheduler.scala:814)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:1714)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:1669)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:1658)\n\tat org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:48)\n\tat org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:630)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2022)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2043)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2075)\n\tat org.elasticsearch.spark.sql.EsSparkSQL$.saveToEs(EsSparkSQL.scala:101)\n\tat org.elasticsearch.spark.sql.ElasticsearchRelation.insert(DefaultSource.scala:620)\n\tat org.elasticsearch.spark.sql.DefaultSource.createRelation(DefaultSource.scala:110)\n\tat org.apache.spark.sql.execution.datasources.DataSource.write(DataSource.scala:472)\n\tat org.apache.spark.sql.execution.datasources.SaveIntoDataSourceCommand.run(SaveIntoDataSourceCommand.scala:48)\n\tat org.apache.spark.sql.execution.command.ExecutedCommandExec.sideEffectResult$lzycompute(commands.scala:58)\n\tat org.apache.spark.sql.execution.command.ExecutedCommandExec.sideEffectResult(commands.scala:56)\n\tat org.apache.spark.sql.execution.command.ExecutedCommandExec.doExecute(commands.scala:74)\n\tat org.apache.spark.sql.execution.SparkPlan$$anonfun$execute$1.apply(SparkPlan.scala:117)\n\tat org.apache.spark.sql.execution.SparkPlan$$anonfun$execute$1.apply(SparkPlan.scala:117)\n\tat org.apache.spark.sql.execution.SparkPlan$$anonfun$executeQuery$1.apply(SparkPlan.scala:138)\n\tat org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)\n\tat org.apache.spark.sql.execution.SparkPlan.executeQuery(SparkPlan.scala:135)\n\tat org.apache.spark.sql.execution.SparkPlan.execute(SparkPlan.scala:116)\n\tat org.apache.spark.sql.execution.QueryExecution.toRdd$lzycompute(QueryExecution.scala:92)\n\tat org.apache.spark.sql.execution.QueryExecution.toRdd(QueryExecution.scala:92)\n\tat org.apache.spark.sql.DataFrameWriter.runCommand(DataFrameWriter.scala:610)\n\tat org.apache.spark.sql.DataFrameWriter.save(DataFrameWriter.scala:233)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)\n\tat py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:357)\n\tat py4j.Gateway.invoke(Gateway.java:280)\n\tat py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)\n\tat py4j.commands.CallCommand.execute(CallCommand.java:79)\n\tat py4j.GatewayConnection.run(GatewayConnection.java:214)\n\tat java.lang.Thread.run(Thread.java:748)\nCaused by: org.elasticsearch.hadoop.EsHadoopException: Could not write all entries for bulk operation [1000/1000]. Error sample (first [5] error messages):\n\torg.elasticsearch.hadoop.rest.EsHadoopRemoteException: illegal_argument_exception: Rejecting mapping update to [spotify] as the final mapping would have more than 1 type: [test5, test1]\n\t{\"index\":{}}\n{\"genre\":\"Classical\",\"artist_name\":\"Jacques Offenbach\",\"track_name\":\"\\\"Boule de neige, Acte I Scène 2: Couplet de la dompteuse \\\"\\\"Je suis du pays vermeil\\\"\\\"\\\"\",\"track_id\":\"2fZnr5q9CJdxGfZjMp9q1e\",\"popularity\":\"35\",\"acousticness\":\"0.899\",\"danceability\":\"0.549\",\"duration_ms\":\"123120\",\"energy\":\"0.216\",\"instrumentalness\":\"1.78e-06\",\"key\":\"G\",\"liveness\":\"0.0419\",\"loudness\":\"-15.955\",\"mode\":\"Major\",\"speechiness\":\"0.0596\",\"tempo\":\"114.826\",\"time_signature\":\"4/4\",\"valence\":\"0.656\"}\n\n\torg.elasticsearch.hadoop.rest.EsHadoopRemoteException: illegal_argument_exception: Rejecting mapping update to [spotify] as the final mapping would have more than 1 type: [test5, test1]\n\t{\"index\":{}}\n{\"genre\":\"Classical\",\"artist_name\":\"Giuseppe Verdi\",\"track_name\":\"Nabucco: Chorus of the Hebrew Slaves (Va\u0027, pensiero, sull\u0027ali dorate)\",\"track_id\":\"6qNQdSuHkg9KkhNED70d15\",\"popularity\":\"38\",\"acousticness\":\"0.989\",\"danceability\":\"0.224\",\"duration_ms\":\"299253\",\"energy\":\"0.0945\",\"instrumentalness\":\"0.764\",\"key\":\"C#\",\"liveness\":\"0.102\",\"loudness\":\"-16.475\",\"mode\":\"Major\",\"speechiness\":\"0.0426\",\"tempo\":\"124.206\",\"time_signature\":\"3/4\",\"valence\":\"0.0574\"}\n\n\torg.elasticsearch.hadoop.rest.EsHadoopRemoteException: illegal_argument_exception: Rejecting mapping update to [spotify] as the final mapping would have more than 1 type: [test5, test1]\n\t{\"index\":{}}\n{\"genre\":\"Classical\",\"artist_name\":\"Johann Sebastian Bach\",\"track_name\":\"Bach, JS: Was mir behagt, ist nur die muntre Jagd, BWV 208\",\"track_id\":\"3l6N2ekLMeS8sCkrPDX3o0\",\"popularity\":\"32\",\"acousticness\":\"0.959\",\"danceability\":\"0.204\",\"duration_ms\":\"279360\",\"energy\":\"0.0816\",\"instrumentalness\":\"0.943\",\"key\":\"A#\",\"liveness\":\"0.123\",\"loudness\":\"-22.315\",\"mode\":\"Major\",\"speechiness\":\"0.0442\",\"tempo\":\"109.15\",\"time_signature\":\"4/4\",\"valence\":\"0.177\"}\n\n\torg.elasticsearch.hadoop.rest.EsHadoopRemoteException: illegal_argument_exception: Rejecting mapping update to [spotify] as the final mapping would have more than 1 type: [test5, test1]\n\t{\"index\":{}}\n{\"genre\":\"Classical\",\"artist_name\":\"Pyotr Ilyich Tchaikovsky\",\"track_name\":\"Romeo \u0026 Juliet Fantasy Overture, TH.42\",\"track_id\":\"5kcWEkBrVgPikRGl6raqiq\",\"popularity\":\"32\",\"acousticness\":\"0.942\",\"danceability\":\"0.12\",\"duration_ms\":\"1157675\",\"energy\":\"0.0709\",\"instrumentalness\":\"0.879\",\"key\":\"B\",\"liveness\":\"0.0552\",\"loudness\":\"-19.657\",\"mode\":\"Minor\",\"speechiness\":\"0.0414\",\"tempo\":\"80.796\",\"time_signature\":\"4/4\",\"valence\":\"0.0362\"}\n\n\torg.elasticsearch.hadoop.rest.EsHadoopRemoteException: illegal_argument_exception: Rejecting mapping update to [spotify] as the final mapping would have more than 1 type: [test5, test1]\n\t{\"index\":{}}\n{\"genre\":\"Classical\",\"artist_name\":\"Johann Sebastian Bach\",\"track_name\":\"Brandenburg Concerto No.3 In G Major, BWV 1048: 1. (Allegro)\",\"track_id\":\"5mY6Q6Idki044f0BSrhTt2\",\"popularity\":\"27\",\"acousticness\":\"0.861\",\"danceability\":\"0.602\",\"duration_ms\":\"345040\",\"energy\":\"0.313\",\"instrumentalness\":\"0.0205\",\"key\":\"F#\",\"liveness\":\"0.204\",\"loudness\":\"-17.395\",\"mode\":\"Major\",\"speechiness\":\"0.0497\",\"tempo\":\"95.635\",\"time_signature\":\"4/4\",\"valence\":\"0.826\"}\n\nBailing out...\n\tat org.elasticsearch.hadoop.rest.bulk.BulkProcessor.flush(BulkProcessor.java:519)\n\tat org.elasticsearch.hadoop.rest.bulk.BulkProcessor.add(BulkProcessor.java:127)\n\tat org.elasticsearch.hadoop.rest.RestRepository.doWriteToIndex(RestRepository.java:192)\n\tat org.elasticsearch.hadoop.rest.RestRepository.writeToIndex(RestRepository.java:172)\n\tat org.elasticsearch.spark.rdd.EsRDDWriter.write(EsRDDWriter.scala:74)\n\tat org.elasticsearch.spark.sql.EsSparkSQL$$anonfun$saveToEs$1.apply(EsSparkSQL.scala:101)\n\tat org.elasticsearch.spark.sql.EsSparkSQL$$anonfun$saveToEs$1.apply(EsSparkSQL.scala:101)\n\tat org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:87)\n\tat org.apache.spark.scheduler.Task.run(Task.scala:108)\n\tat org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:335)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\n\t... 1 more\n\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641307315696_14396324",
+      "id": "20220104-144155_203390224",
+      "dateCreated": "Jan 4, 2022 2:41:55 PM",
+      "dateStarted": "Jan 4, 2022 4:39:19 PM",
+      "dateFinished": "Jan 4, 2022 4:39:27 PM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%elasticsearch\nsearch /spotify/test2",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 4:16:02 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/undefined"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Error : None of the configured nodes are available: [{#transport#-1}{172.18.0.5}{172.18.0.5:9200}]"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1641305510636_1234276387",
+      "id": "20220104-141150_760355946",
+      "dateCreated": "Jan 4, 2022 2:11:50 PM",
+      "dateStarted": "Jan 4, 2022 4:16:03 PM",
+      "dateFinished": "Jan 4, 2022 4:16:03 PM",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%elasticsearch\n",
+      "user": "anonymous",
+      "dateUpdated": "Jan 4, 2022 2:48:08 PM",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1641307688490_-1956719909",
+      "id": "20220104-144808_340010230",
+      "dateCreated": "Jan 4, 2022 2:48:08 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "SpotifyTracksAnalysis",
+  "id": "2GSKVDTAS",
+  "angularObjects": {
+    "2GSCTPTVM:shared_process": [],
+    "2GS2B16FJ:shared_process": [],
+    "2GQZMVHTA:shared_process": [],
+    "2GTNB394J:shared_process": [],
+    "2GSKN9QPB:shared_process": [],
+    "2GSMNBN3Z:shared_process": [],
+    "2GUDCM5QS:shared_process": [],
+    "2GRQQAU61:shared_process": [],
+    "2GTXDWV5N:shared_process": []
+  },
+  "config": {},
+  "info": {}
+}
